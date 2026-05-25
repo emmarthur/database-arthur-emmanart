@@ -383,25 +383,6 @@ def build() -> Path:
         "~45 sec. Personal tie-in, then say my 30 questions mirror reports a front office or analyst might ask.",
     )
 
-    s = prs.slides.add_slide(prs.slide_layouts[6])
-    add_title_bar(s, "Business connections", "Why this project matters outside class")
-    add_bullets(
-        s,
-        [
-            "Club / league operations: season KPIs (goals, clean sheets, home vs away) for coaching and scouting",
-            "Media & broadcasting: compare markets (e.g. avg goals by country) for scheduling and storytelling",
-            "Betting & risk (data in Match_tbl): historical odds vs outcomes; favorite win rates",
-            "Talent / HR analog: Player_Attributes over time ≈ employee skill ratings for hiring and development",
-            "Same database patterns as retail (product sales by region) or finance (metrics over time)",
-        ],
-        size=17,
-    )
-    set_notes(
-        s,
-        "~45 sec. Pick two examples. Emphasize star schema: dimensions (who/where) + facts (what happened). "
-        "Views are like canned reports for business users.",
-    )
-
     erd_path = resolve_erd_image()
     add_erd_slide(prs, erd_path)
 
@@ -535,6 +516,25 @@ def build() -> Path:
         s,
         "~1 min. LIVE DEMO. Run Q18. Tie to business: clean sheets = defensive reliability metric "
         "clubs track across home and away fixtures.",
+    )
+
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    add_title_bar(s, "Business applications", "Why this project matters outside class")
+    add_bullets(
+        s,
+        [
+            "Club / league operations: season KPIs (goals, clean sheets, home vs away) for coaching and scouting",
+            "Media & broadcasting: compare markets (e.g. avg goals by country) for scheduling and storytelling",
+            "Betting & risk (data in Match_tbl): historical odds vs outcomes; favorite win rates",
+            "Talent / HR analog: Player_Attributes over time ≈ employee skill ratings for hiring and development",
+            "Same database patterns as retail (product sales by region) or finance (metrics over time)",
+        ],
+        size=17,
+    )
+    set_notes(
+        s,
+        "~45 sec. Closing slide before Q&A. Pick two examples. Star schema: dimensions + facts; "
+        "views = canned reports for business users.",
     )
 
     s = prs.slides.add_slide(prs.slide_layouts[6])
