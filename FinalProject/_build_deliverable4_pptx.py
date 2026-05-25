@@ -16,6 +16,8 @@ USER_ERD_CANDIDATES = [
     PROJECT_DIR / "s26a_db0061 - s26a_db0061 - soccer_proj.png",
     PROJECT_DIR / "soccer_proj_erd.png",
 ]
+DEMO_Q16_RESULTS_PNG = PROJECT_DIR / "demo_q16_results.png"
+DEMO_Q18_RESULTS_PNG = PROJECT_DIR / "demo_q18_results.png"
 
 GREEN = RGBColor(0x1B, 0x5E, 0x20)
 DARK = RGBColor(0x21, 0x21, 0x21)
@@ -59,6 +61,69 @@ def add_bullets(slide, items: list[str], top=1.35, left=0.6, width=8.8, height=5
         p.font.name = "Calibri"
         p.font.color.rgb = DARK
         p.space_after = Pt(10)
+
+
+DEMO_Q16_SQL = """SELECT c.name AS country,
+  AVG((m.home_team_goal + m.away_team_goal)::numeric) AS avg_goals_per_match
+FROM soccer_proj."Match_tbl" m
+JOIN soccer_proj."League" l ON l.id = m.league_id
+JOIN soccer_proj."Country" c ON c.id = l.country_id
+GROUP BY c.name
+ORDER BY avg_goals_per_match DESC;"""
+
+DEMO_Q18_SQL = """SELECT t.team_long_name,
+  SUM(CASE WHEN m.home_team_api_id = t.team_api_id AND m.away_team_goal = 0 THEN 1 ELSE 0 END
+     + CASE WHEN m.away_team_api_id = t.team_api_id AND m.home_team_goal = 0 THEN 1 ELSE 0 END) AS clean_sheets
+FROM soccer_proj."Team" t
+JOIN soccer_proj."Match_tbl" m
+  ON m.home_team_api_id = t.team_api_id OR m.away_team_api_id = t.team_api_id
+GROUP BY t.team_long_name
+ORDER BY clean_sheets DESC
+LIMIT 30;"""
+
+
+def add_result_screenshot(slide, image_path: Path, top=1.1, left=0.35, max_width=9.3, max_height=6.15):
+    """Scale DBeaver screenshot to fit below slide title."""
+    if not image_path.is_file():
+        add_bullets(
+            slide,
+            [f"[Missing screenshot: {image_path.name}]"],
+            top=top + 0.5,
+            size=18,
+        )
+        return
+    pic = slide.shapes.add_picture(str(image_path), Inches(left), Inches(top), width=Inches(max_width))
+    if pic.height > Inches(max_height):
+        scale = Inches(max_height) / pic.height
+        pic.width = int(pic.width * scale)
+        pic.height = int(pic.height * scale)
+        pic.left = int(Inches(left))
+        pic.top = int(Inches(top))
+
+
+def add_demo_results_slide(prs, title: str, subtitle: str, image_path: Path, notes: str) -> None:
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    add_title_bar(s, title, subtitle)
+    add_result_screenshot(s, image_path)
+    set_notes(s, notes)
+
+
+def add_sql_block(slide, sql: str, top=3.55, left=0.55, width=8.9, height=3.5, size=9):
+    box = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
+    tf = box.text_frame
+    tf.word_wrap = True
+    p = tf.paragraphs[0]
+    p.text = "SQL (copy into DBeaver on soccer_proj):"
+    p.font.size = Pt(11)
+    p.font.bold = True
+    p.font.name = "Calibri"
+    p.font.color.rgb = GREEN
+    p2 = tf.add_paragraph()
+    p2.text = sql.strip()
+    p2.font.size = Pt(size)
+    p2.font.name = "Consolas"
+    p2.font.color.rgb = DARK
+    p2.space_before = Pt(4)
 
 
 def _draw_entity(
@@ -488,16 +553,25 @@ def build() -> Path:
         s,
         [
             "Question: Which countries had the highest average goals per match?",
-            "Business use: compare markets (entertainment value, broadcast appeal, fan engagement)",
-            "Tables: Match_tbl → League → Country (3-table join)",
-            "Techniques: INNER JOIN (inner join), GROUP BY country, AVG of home + away goals",
+            "Tables: Match_tbl → League → Country · INNER JOIN, GROUP BY, AVG (no CASE)",
         ],
-        size=17,
+        top=1.25,
+        height=2.1,
+        size=16,
     )
+    add_sql_block(s, DEMO_Q16_SQL)
     set_notes(
         s,
-        "~1 min. LIVE DEMO. Run Q16. Say: 'This is like a regional sales report—which country’s "
-        "leagues produce the most goals per match.'",
+        "~1 min. LIVE DEMO. Run Q16.\n\n" + DEMO_Q16_SQL + "\n\n"
+        "Say: regional report—which country’s leagues produce the most goals per match.",
+    )
+
+    add_demo_results_slide(
+        prs,
+        "DEMO Q16 — Query results",
+        "DBeaver · demo1 · Netherlands leads avg goals per match",
+        DEMO_Q16_RESULTS_PNG,
+        "~30 sec. Show this screenshot or live results. Highlight top countries (Netherlands, Switzerland, Germany).",
     )
 
     s = prs.slides.add_slide(prs.slide_layouts[6])
@@ -506,16 +580,25 @@ def build() -> Path:
         s,
         [
             "Question: Which teams most frequently kept clean sheets?",
-            "Business use: defensive KPI for scouting, tactics, and “best defense” style rankings",
-            "Tables: Team joined to Match_tbl (team is home OR away)",
-            "Techniques: join using OR (home or away), two CASE expressions inside SUM, GROUP BY, ORDER BY",
+            "Tables: Team + Match_tbl · JOIN with OR · two CASE inside SUM · GROUP BY",
         ],
-        size=17,
+        top=1.25,
+        height=2.1,
+        size=16,
     )
+    add_sql_block(s, DEMO_Q18_SQL, size=8)
     set_notes(
         s,
-        "~1 min. LIVE DEMO. Run Q18. Tie to business: clean sheets = defensive reliability metric "
-        "clubs track across home and away fixtures.",
+        "~1 min. LIVE DEMO. Run Q18.\n\n" + DEMO_Q18_SQL + "\n\n"
+        "Clean sheets = defensive KPI clubs track home and away.",
+    )
+
+    add_demo_results_slide(
+        prs,
+        "DEMO Q18 — Query results",
+        "DBeaver · demo2 · Celtic leads clean sheets",
+        DEMO_Q18_RESULTS_PNG,
+        "~30 sec. Show screenshot or live results. Celtic, Barcelona, Manchester United at top.",
     )
 
     s = prs.slides.add_slide(prs.slide_layouts[6])

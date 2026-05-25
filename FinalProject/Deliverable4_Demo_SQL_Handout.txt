@@ -1,0 +1,32 @@
+Deliverable 4 — Video demo SQL (last section of presentation handout)
+Schema: soccer_proj · Run in DBeaver on your class or local Postgres connection
+
+================================================================================
+DEMO 1 — INTERMEDIATE (Q16): Joins + GROUP BY + AVG (no CASE)
+================================================================================
+
+English: Which countries had the highest average goals per match across all their leagues?
+
+SELECT c.name AS country,
+  AVG((m.home_team_goal + m.away_team_goal)::numeric) AS avg_goals_per_match
+FROM soccer_proj."Match_tbl" m
+JOIN soccer_proj."League" l ON l.id = m.league_id
+JOIN soccer_proj."Country" c ON c.id = l.country_id
+GROUP BY c.name
+ORDER BY avg_goals_per_match DESC;
+
+================================================================================
+DEMO 2 — ADVANCED (Q18): JOIN with OR + conditional SUM (CASE)
+================================================================================
+
+English: Which teams most frequently kept clean sheets?
+
+SELECT t.team_long_name,
+  SUM(CASE WHEN m.home_team_api_id = t.team_api_id AND m.away_team_goal = 0 THEN 1 ELSE 0 END
+     + CASE WHEN m.away_team_api_id = t.team_api_id AND m.home_team_goal = 0 THEN 1 ELSE 0 END) AS clean_sheets
+FROM soccer_proj."Team" t
+JOIN soccer_proj."Match_tbl" m
+  ON m.home_team_api_id = t.team_api_id OR m.away_team_api_id = t.team_api_id
+GROUP BY t.team_long_name
+ORDER BY clean_sheets DESC
+LIMIT 30;
