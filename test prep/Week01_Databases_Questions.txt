@@ -1,0 +1,37 @@
+1. What is the difference between data and information?
+data is a representation of an entity or event whilst information is a set of data
+2. What is a database?
+a database is a place where data is organized and stored 
+3. What is a DBMS, and how is it different from a database?
+DBMS software that manages databases.
+4. Why do organizations use databases instead of regular file systems?
+security, consistency, multiple user handling, proper data validation
+5. What does data inconsistency mean in a file-based system?
+it means the data in one file isn't reflected correctly in other files.
+6. How do databases provide faster and more efficient access to data?
+by providing a single source of truth and a structured way of accessing data from it
+7. How do databases improve security and controlled access?
+they have rules on who has access to the data at a certain period of time
+8. How do databases support backup and recovery?
+they store multiple copies of data 
+9. How does a DBMS support multiple users at the same time?
+it makes sure that changes by one user are isolated from changes from another user preventing conflict
+10. What does ACID stand for, and why is it important?
+Atomicity, Consistency, Isolation, Durability
+11. What does each ACID property (Atomicity, Consistency, Isolation, Durability) mean?
+Atomicity all parts of transaction happen or none happen
+Consistency data must be valid before and after transaction. For example some change in a data somewhere can't 
+unexpectedly reflect somewhere else 
+Isolation multiple transactions don't interfere
+Durability data stays saved even when they are crashes
+12. What is a relational database (RDBMS), and what structure does it use?
+Stores data in tables which consist of rows and columns. Has a table, a schema and language for access of data
+13. What is the difference between relational, NoSQL, object-oriented, and graph databases?
+relational - organizing structured data
+NoSQL - for large amounts or unstructured data
+object-oriented - for storing objects
+graph - storing relationships
+14. When would you choose NoSQL instead of a relational database?
+when dealing with data that is unstructured and can't be broken into records with values for specific properties
+15. What are the main advantages of databases you should remember for the exam?
+security, fast access, consistency, backup and recovery, multiple user handling

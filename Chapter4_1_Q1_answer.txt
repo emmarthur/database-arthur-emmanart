@@ -1,0 +1,5 @@
+GROUP BY in SQL basically bundles rows that have the same value(s) in one or more columns, so you can run aggregate functions (COUNT, SUM, AVG, etc.) on each bundle instead of the whole table.
+
+A real-world use: say you have a library table and want to know how many libraries are in each state.
+You would group by state (stabr) and do COUNT(*), so instead of thousands of individual rows, you get one row per state with its total library count.
+That is useful for quick reporting and comparing categories.

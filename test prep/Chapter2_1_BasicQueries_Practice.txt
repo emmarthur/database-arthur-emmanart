@@ -1,0 +1,120 @@
+Multiple Choice
+
+1. Which of the following is considered a DDL statement in your slides?
+A) SELECT
+B) INSERT
+C) CREATE TABLE
+D) DELETE
+
+C)
+Feedback: Correct. CREATE TABLE is DDL because it defines database objects.
+Grade: Correct
+
+2. Which clause is used to filter rows based on a condition?
+A) ORDER BY
+B) WHERE
+C) LIMIT
+D) OFFSET
+
+B)
+Feedback: Correct. WHERE filters rows based on conditions.
+Grade: Correct
+
+3. What does DISTINCT do?
+A) Sorts rows in descending order
+B) Removes duplicate rows from the result set
+C) Filters NULL values only
+D) Renames a column
+
+B)
+Feedback: Correct. DISTINCT removes duplicate rows in the selected result.
+Grade: Correct
+
+4. In PostgreSQL, which operator is case-insensitive for pattern matching?
+A) LIKE
+B) ILIKE
+C) IN
+D) BETWEEN
+
+ILIKE
+Feedback: Correct. In PostgreSQL, ILIKE is case-insensitive; LIKE is case-sensitive.
+Grade: Correct
+
+5. Which is the correct way to check for missing hire dates?
+A) WHERE hire_date = NULL
+B) WHERE hire_date <> NULL
+C) WHERE hire_date IS NULL
+D) WHERE hire_date LIKE NULL
+
+C)
+Feedback: Correct. NULL comparisons use IS NULL / IS NOT NULL, not = or <>.
+Grade: Correct
+
+True / False
+
+6. ORDER BY is optional, but if omitted, row order is guaranteed to stay the same.
+   False
+Feedback: Correct. Without ORDER BY, row order is not guaranteed.
+Grade: Correct
+7. Strings in WHERE conditions should use single quotes.
+   True
+Feedback: Correct. String literals use single quotes.
+Grade: Correct
+8. LIMIT and OFFSET are non-ANSI features (as noted in your slides).
+True
+Feedback: Correct according to your slide notes.
+Grade: Correct
+9. DISTINCT school, salary applies uniqueness to each column independently.
+   False
+Feedback: Correct. DISTINCT applies to the whole selected row combination.
+Grade: Correct
+10. SELECT * always guarantees the same column order.
+False
+Feedback: Correct. Column order is not guaranteed by SQL standard.
+Grade: Correct
+
+Short Answer
+
+11. What is the difference between LIKE and ILIKE in PostgreSQL?
+ ILIKE is case insensitive whereas LIKE is the opposite
+Feedback: Correct and clearly stated.
+Grade: Correct
+12. Why should you avoid relying on SELECT * in serious queries?
+Don't know
+Feedback: Incomplete. Key reasons: unnecessary columns hurt performance, column order is not guaranteed, and schema changes can break expectations.
+Grade: Incorrect
+13. Write a query to return first_name, last_name, and salary from teachers.teachers, sorted by salary descending.
+select first_name, last_name, salary
+from teachers.teachers
+order by salary desc
+Feedback: Correct. Add a semicolon in full SQL style.
+Grade: Correct
+14. Write a query to return only teachers from 'Myers Middle School'.
+select *
+from teachers.teachers
+where school = 'Myers Middle School';
+Feedback: Correct. Good use of single quotes and WHERE filter.
+Grade: Correct
+15. What is the purpose of AS in a SELECT statement?
+for giving an alias to a column
+Feedback: Correct. AS renames columns (and can alias tables) in the result.
+Grade: Correct
+
+Fill in the Blanks
+
+16. The six clauses shown for basic PostgreSQL SELECT are: SELECT, FROM, WHERE, ORDER BY, LIMIT, OFFSET.
+Feedback: Correct.
+Grade: Correct
+17. To return only unique schools, use SELECT DISTINCT school FROM teachers.teachers;
+Feedback: Correct.
+Grade: Correct
+18. To skip the first 2 rows, use the OFFSET 2 clause.
+Feedback: Correct.
+Grade: Correct
+19. To match names starting with Sam (case-sensitive), use first_name LIKE 'Sam%'.
+Feedback: Correct.
+Grade: Correct
+20. To test that hire_date has no value, use hire_date IS NULL.
+Feedback: Correct.
+Grade: Correct
+d

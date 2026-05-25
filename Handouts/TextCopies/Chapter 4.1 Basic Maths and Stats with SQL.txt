@@ -1,0 +1,159 @@
+===== Page 1 =====
+Esme Basnet CS486/586 Intro DBMS
+CS 486/586
+Chapter 6
+Basic Math and Stats with SQL
+
+
+===== Page 2 =====
+Esme Basnet CS486/586 Intro DBMS
+Operato
+r Description Example Result
++ addition 2 + 3 5
+- subtraction 2 - 3 -1
+* multiplication 2 * 3 6
+/ division (integer division truncates the result) 4 / 2 2
+% modulo (integral remainder) 5 % 4 1
+^ exponentiation (Unlike typical mathematical practice, multiple 
+uses of ^ will associate left to right by default) 2.0 ^ 3.0 8
+|/ square root (also a SQRT() function) |/ 25.0 5
+||/ cube root (also CBRT() function) ||/ 27.0 3
+! factorial (deprecated, use factorial() instead) 5 ! 120
+!! factorial as a prefix operator (deprecated, use factorial() 
+instead) !! 5 120
+@ absolute value (also an ABS() function) @ -5.0 5
+& bitwise AND 91 & 15 11
+| bitwise OR 32 | 3 35
+# bitwise XOR 17 # 5 20
+~ bitwise NOT (ones’ complement) ~1 -2
+<< bitwise shift left 1 << 4 16
+>> bitwise shift right 8 >> 2 2
+
+
+===== Page 3 =====
+Esme Basnet CS486/586 Intro DBMS
+When using an operator between two numbers — addition, 
+subtraction, multiplication, or division — the data type 
+returned follows this pattern:
+• Two integers return an integer.
+• A numeric datatype on either side or both sides of the 
+operator returns a numeric.
+• Anything with a floating-point number returns a 
+floating-point number of type double precision.
+
+
+===== Page 4 =====
+Esme Basnet CS486/586 Intro DBMS
+For the PostgreSQL operators discussed so far, 
+the order of precedence is as follows:
+1. Exponents and roots
+2. Multiplication, division, modulo
+3. Addition and subtraction
+
+
+===== Page 5 =====
+Esme Basnet CS486/586 Intro DBMS
+Parentheses are not endangered, use them.
+When in 
+doubt…
+((((((((((  ))))))))))
+
+
+===== Page 6 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT county_name AS county,
+    state_name AS state, births_2019 AS births, deaths_2019 AS deaths, 
+    births_2019 - deaths_2019 AS natural_increase
+FROM chap_05_examples.us_counties_pop_est_2019
+WHERE state_name = 'Oregon'
+ORDER BY state_name, county_name
+LIMIT 10;
+county state births deaths natural_increase
+Baker County Oregon 153 211 -58
+Benton County Oregon 701 584 117
+Clackamas 
+County Oregon 3,987 3,559 428
+Clatsop County Oregon 377 398 -21
+Columbia County Oregon 499 503 -4
+Coos County Oregon 599 937 -338
+Crook County Oregon 259 266 -7
+Curry County Oregon 166 345 -179
+Deschutes 
+County Oregon 1,857 1,548 309
+Douglas County Oregon 1,065 1,473 -408
+
+
+===== Page 7 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT county_name AS county,
+    state_name AS state,
+    area_water::numeric / (area_land + area_water) * 100 AS pct_water
+FROM chap_05_examples.us_counties_pop_est_2019
+where state_name = 'Oregon'
+ORDER BY pct_water desc
+limit 10;
+county state pct_water
+Clatsop County Oregon 23.5748770871
+Curry County Oregon 18.1404696809
+Lincoln County Oregon 17.8770518328
+Tillamook County Oregon 17.2649189479
+Coos County Oregon 11.6414330358
+Multnomah County Oregon 7.3225547721
+Columbia County Oregon 4.4792851059
+Lane County Oregon 3.5651682396
+Klamath County Oregon 3.1687716021
+Lake County Oregon 2.6262498945
+
+
+===== Page 8 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT county_name AS county,
+  state_name AS state,
+  pop_est_2018 AS pop_2018,
+  pop_est_2019 AS pop_2019,
+  pop_est_2019 - pop_est_2018 as pop_growth,
+  round((pop_est_2019 - pop_est_2018 * 1.0) / pop_est_2018 * 100.0, 4) as pct_pop_growth
+FROM chap_05_examples.us_counties_pop_est_2019
+where state_name = 'Oregon'
+ORDER BY pct_pop_growth desc limit 10;
+county state pop_2018 pop_2019 pop_growth pct_pop_growth
+Sherman County Oregon 1,700 1,780 80 4.7059
+Deschutes County Oregon 191,905 197,692 5,787 3.0156
+Crook County Oregon 23,825 24,404 579 2.4302
+Morrow County Oregon 11,360 11,603 243 2.1391
+Wallowa County Oregon 7,058 7,208 150 2.1252
+Jefferson County Oregon 24,150 24,658 508 2.1035
+Linn County Oregon 127,451 129,749 2,298 1.803
+Lincoln County Oregon 49,224 49,962 738 1.4993
+Harney County Oregon 7,292 7,393 101 1.3851
+Clatsop County Oregon 39,711 40,224 513 1.2918
+
+
+===== Page 9 =====
+Esme Basnet CS486/586 Intro DBMS
+We’ve shown math operations across columns in each row of a table.
+SQL also lets you calculate a result from values within the same column 
+using aggregate functions.
+Aggregate functions perform a calculation on a set of rows and return a 
+single row. PostgreSQL provides all standard SQL’s aggregate functions as 
+follows:
+• AVG() – return the average value.
+• COUNT() – return the number of values (with or without NULL).
+• MAX() – return the maximum value.
+• MIN() – return the minimum value.
+• SUM() – return the sum of all or distinct values.
+
+
+===== Page 10 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT 
+    sum(pop_est_2019) AS county_sum,
+    round(avg(pop_est_2019), 0) AS county_average
+FROM chap_05_examples.us_counties_pop_est_2019;
+county_sum county_average
+328,239,523 104,468
+We’ve shown math operations across columns in each row of a 
+table.
+SQL also lets you calculate a result from values within the same 
+column using aggregate functions.
+Below, we apply a couple aggregate functions to the entire table.

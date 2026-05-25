@@ -1,0 +1,318 @@
+MIDTERM CHEATSHEET (ALL HANDOUTS) - TEMPLATE HEAVY VERSION
+Course: CS486/586 Intro DBMS
+Exam format: Multiple Choice, True/False, Short Answer, Fill in the Blanks
+
+==================================================
+1) RED/BLUE HIGHLIGHT RULES TO MEMORIZE FIRST
+==================================================
+
+1. SELECT clause order in this class:
+   SELECT -> FROM -> WHERE -> ORDER BY -> LIMIT -> OFFSET
+
+2. ORDER BY rule:
+   If ORDER BY is omitted, row order is not guaranteed.
+
+3. Quote rule:
+   String literals use single quotes, not double quotes.
+   Correct: WHERE school = 'Myers Middle School'
+   Wrong:   WHERE school = "Myers Middle School"
+
+4. NULL rule:
+   Do NOT use = NULL or <> NULL.
+   Use IS NULL / IS NOT NULL.
+
+5. DISTINCT rule:
+   DISTINCT applies to the full selected row combination.
+
+6. JOIN rule:
+   JOIN without LEFT/RIGHT/FULL/CROSS defaults to INNER JOIN.
+
+7. LIKE rule (PostgreSQL):
+   LIKE is case-sensitive, ILIKE is case-insensitive.
+
+8. Course-specific key rule:
+   For auto-increment keys, use IDENTITY syntax.
+   serial/bigserial are PostgreSQL-specific and not accepted on exam per slide note.
+
+==================================================
+2) CORE DEFINITIONS (SHORT ANSWER READY)
+==================================================
+
+- Database: organized collection of related data.
+- DBMS: software that manages data storage, retrieval, security, integrity, and concurrency.
+- Inconsistency: same fact stored differently in different files/tables.
+- Primary key: uniquely identifies a row; cannot be NULL.
+- Foreign key: one or more columns that reference a primary/unique key in another table.
+- ACID: Atomicity, Consistency, Isolation, Durability.
+- DML: SELECT, INSERT, UPDATE, DELETE.
+- DDL: CREATE, ALTER, DROP.
+
+==================================================
+3) MUST-KNOW SQL TEMPLATES (COPY/ADAPT)
+==================================================
+
+A) Base SELECT template
+SELECT column1, column2
+FROM schema_name.table_name
+WHERE condition
+ORDER BY column1 ASC, column2 DESC
+LIMIT 10
+OFFSET 0;
+
+B) Filter templates
+SELECT *
+FROM teachers.teachers
+WHERE school = 'Myers Middle School';
+
+SELECT *
+FROM teachers.teachers
+WHERE salary BETWEEN 35000 AND 50000;
+
+SELECT *
+FROM teachers.teachers
+WHERE last_name IN ('Bush', 'Roush');
+
+SELECT *
+FROM teachers.teachers
+WHERE first_name ILIKE 'sam%';
+
+C) NULL templates
+SELECT *
+FROM teachers.teachers
+WHERE hire_date IS NULL;
+
+SELECT *
+FROM teachers.teachers
+WHERE hire_date IS NOT NULL;
+
+D) DISTINCT templates
+SELECT DISTINCT school
+FROM teachers.teachers
+ORDER BY school;
+
+SELECT DISTINCT school, salary
+FROM teachers.teachers
+ORDER BY school, salary;
+
+==================================================
+4) JOIN TEMPLATES (VERY LIKELY EXAM TOPIC)
+==================================================
+
+General join pattern:
+SELECT a.col1, b.col2
+FROM schema.a AS a
+JOIN schema.b AS b
+  ON a.pk = b.fk;
+
+1) INNER JOIN (only matches)
+SELECT d.dept, e.first_name, e.last_name
+FROM chap_07_examples.departments AS d
+INNER JOIN chap_07_examples.employees AS e
+  ON d.dept_id = e.dept_id;
+
+2) LEFT JOIN (all left, matched right)
+SELECT d.dept, e.first_name, e.last_name
+FROM chap_07_examples.departments AS d
+LEFT JOIN chap_07_examples.employees AS e
+  ON d.dept_id = e.dept_id;
+
+3) RIGHT JOIN (all right, matched left)
+SELECT d.dept, e.first_name, e.last_name
+FROM chap_07_examples.departments AS d
+RIGHT JOIN chap_07_examples.employees AS e
+  ON d.dept_id = e.dept_id;
+
+4) FULL JOIN (all from both, unmatched become NULL)
+SELECT d.dept, e.first_name, e.last_name
+FROM chap_07_examples.departments AS d
+FULL JOIN chap_07_examples.employees AS e
+  ON d.dept_id = e.dept_id;
+
+5) CROSS JOIN (cartesian product)
+SELECT a.id, b.id
+FROM table_a AS a
+CROSS JOIN table_b AS b;
+
+Self-join template (employee -> manager):
+SELECT worker.first_name AS employee,
+       manager.first_name AS boss,
+       worker.title
+FROM self_join.employees AS worker
+JOIN self_join.employees AS manager
+  ON worker.manager_id = manager.employee_id
+ORDER BY boss, employee;
+
+==================================================
+5) GROUP BY + AGGREGATE TEMPLATES
+==================================================
+
+Aggregate-only:
+SELECT COUNT(*) AS row_count,
+       COUNT(phone) AS non_null_phone_count,
+       MIN(visits) AS min_visits,
+       MAX(visits) AS max_visits,
+       AVG(visits) AS avg_visits,
+       SUM(visits) AS total_visits
+FROM chap_09_examples.pls_fy2018_libraries;
+
+Group by one column:
+SELECT stabr, COUNT(*) AS library_count
+FROM chap_09_examples.pls_fy2018_libraries
+GROUP BY stabr
+ORDER BY library_count DESC;
+
+Group by multiple columns:
+SELECT city, stabr, COUNT(*) AS n
+FROM chap_09_examples.pls_fy2018_libraries
+GROUP BY city, stabr
+ORDER BY n DESC;
+
+Group filtering with HAVING:
+SELECT stabr, COUNT(*) AS library_count
+FROM chap_09_examples.pls_fy2018_libraries
+GROUP BY stabr
+HAVING COUNT(*) > 100
+ORDER BY library_count DESC;
+
+Distinct count:
+SELECT COUNT(DISTINCT libname) AS unique_library_names
+FROM chap_09_examples.pls_fy2018_libraries;
+
+Important GROUP BY rule:
+- Every selected column that is not inside an aggregate must appear in GROUP BY.
+
+==================================================
+6) TABLE DESIGN + CONSTRAINT TEMPLATES
+==================================================
+
+Single-column PK (column constraint):
+CREATE TABLE licenses (
+    license_id text PRIMARY KEY,
+    first_name text,
+    last_name text
+);
+
+Composite PK (table constraint):
+CREATE TABLE attendance (
+    student_id text,
+    school_day date,
+    present boolean,
+    CONSTRAINT attendance_pk PRIMARY KEY (student_id, school_day)
+);
+
+IDENTITY surrogate key (exam-preferred):
+CREATE TABLE orders (
+    order_number bigint GENERATED ALWAYS AS IDENTITY,
+    product_name text,
+    CONSTRAINT order_number_pk PRIMARY KEY (order_number)
+);
+
+FK + ON DELETE CASCADE:
+CREATE TABLE registrations (
+    registration_id text,
+    license_id text REFERENCES licenses(license_id) ON DELETE CASCADE,
+    CONSTRAINT registration_pk PRIMARY KEY (registration_id, license_id)
+);
+
+CHECK + UNIQUE + NOT NULL:
+CREATE TABLE users_example (
+    user_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email text UNIQUE,
+    user_role text NOT NULL CHECK (user_role IN ('Admin', 'Staff')),
+    salary numeric(10,2) CHECK (salary >= 0)
+);
+
+Minimal CHECK-in-CREATE template:
+CREATE TABLE t_example (
+    amount numeric(10,2),
+    CONSTRAINT amount_nonnegative CHECK (amount >= 0)
+);
+
+==================================================
+7) DATA TYPES (CH 2.2 HIGH-YIELD)
+==================================================
+
+Character types:
+- char(n): fixed length, pads spaces
+- varchar(n): variable length up to n
+- text: variable large length (PostgreSQL extension)
+
+Slide takeaway:
+- In PostgreSQL, char(n) usually gives no speed advantage and may be slower.
+- In most practical cases use varchar or text.
+
+Other core categories to recognize:
+- Numeric: int, bigint, numeric(p,s), real/double precision
+- Date/time: date, time, timestamp, timestamp with time zone
+- Boolean: true/false
+
+==================================================
+8) MATH + EXPRESSIONS + ALIASES
+==================================================
+
+Operators: +, -, *, /, %, ^
+Precedence:
+1) exponents/roots
+2) multiplication/division/modulo
+3) addition/subtraction
+Use parentheses when in doubt.
+
+Expression + alias template:
+SELECT first_name || ' ' || last_name AS "Teacher Name",
+       salary AS "Old Salary",
+       salary + 1000 AS "New Salary"
+FROM teachers.teachers;
+
+==================================================
+9) VIEWS (CH 12) - CREATE/USE/RESTRICTIONS
+==================================================
+
+Create view:
+CREATE OR REPLACE VIEW ap.vendor_invoices AS
+SELECT vendor_name, invoice_number, invoice_date, invoice_total
+FROM ap.vendors
+JOIN ap.invoices
+  ON vendors.vendor_id = invoices.vendor_id;
+
+Query a view:
+SELECT *
+FROM ap.vendor_invoices
+WHERE vendor_name ILIKE 'A%'
+ORDER BY invoice_total DESC;
+
+Update through a view (when updatable):
+UPDATE ap.vendor_invoices
+SET invoice_total = 1200
+WHERE invoice_number = 'INV-1001';
+
+Drop (delete) a view:
+DROP VIEW IF EXISTS ap.vendor_invoices;
+
+Core facts:
+- View is a stored query (virtual table), not stored result rows.
+- Benefits: simplify repeated joins, limit exposed columns/rows, abstraction.
+- Updatable view generally requires 1-to-1 row mapping.
+- Usually non-updatable if it has DISTINCT, GROUP BY, HAVING, aggregates, UNION, outer joins.
+- Calculated columns in views are not directly updatable.
+
+==================================================
+10) ER MODELING + DESIGN (WEEK 03-2)
+==================================================
+
+- Entity: noun/thing business cares about; maps to relational table.
+- Relationship: association between entities.
+- Cardinality: one-to-one, one-to-many, many-to-many.
+- Weak entity: depends on parent entity to exist; often deleted when parent is deleted.
+
+==================================================
+11) 20-SECOND MEMORY DUMPS (FOR FILL-IN/TF/MC)
+==================================================
+
+- SELECT order: S-F-W-O-L-O
+- NULL compare: IS NULL / IS NOT NULL only
+- 5 joins: INNER, LEFT, RIGHT, FULL, CROSS
+- Aggregates: COUNT, SUM, AVG, MIN, MAX
+- COUNT(*) vs COUNT(col): rows vs non-NULL values
+- PK vs UNIQUE: PK cannot be NULL; UNIQUE can allow NULL
+- IDENTITY = exam-safe auto-increment syntax
+

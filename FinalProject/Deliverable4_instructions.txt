@@ -1,0 +1,53 @@
+Deliverable 4 - Final Project
+Due Jun 11 by 11:59pm Points 60 Submitting a file upload File Types doc, docx, and pdf Available until Jun 11 at 11:59pm
+Deliverable 4 & Video Presentation: Due Thursday of Finals Week (June 11, 2026)
+
+Deliverable 4 & Video Presentation
+4.1. Create a final writeup of your project. For the most part, this deliverable is the
+
+accumulation of the deliverables up to this. The final writeup should include:
+
+4.1.1. The Final ER diagram as you actually implemented it.
+
+4.1.2. Table create statements with primary keys, unique keys, and foreign keys for all
+
+tables in your project. This should also include all create view statements (you’ll
+
+need at least one).
+
+4.1.3. Create Index statements for all indexes you created for your project.(for grad)
+
+4.1.4. A thorough description of how you populated the database.
+
+4.1.5. For each of your questions, the questions in English, their translation to SQL and the full answer to the query(or the first 10 rows). If you needed to change any of your original questions, list the original questions and why you needed to change or replace them.
+
+4.1.6. A listing of 5 rows from each of your tables and row counts of all tables
+
+4.1.7 I want to see the total row count of all your tables. 
+
+Final Presentation (Video) 
+Length: 8 minutes per team (strictly 8 mins)
+
+NOTE: Add the link to your video at the top of your Deliverable 4 document and also include it in the submission comments. Please make sure the link works properly and that the video is not corrupted or inaccessible in any way.
+
+All team members must appear and present in the video. Presentations can be divided among team members by section or portion of the project.
+
+Must include:
+
+Dataset overview + why you chose it
+
+Show initial ERD → final ERD (what changed)
+
+Demo a few tables + row counts
+
+Demo 2 queries ( one intermediate and one advanced)
+
+Discuss:
+
+hardest part
+
+what you learned
+
+how confident you feel with SQL now
+
+what you would do next with more time

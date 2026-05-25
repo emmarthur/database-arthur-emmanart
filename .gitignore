@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets / local config
+.env
+*.env.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.cursor/
+~$*
+
+# Large data (regenerate with FinalProject/sqlite_to_postgres_prep.py)
+FinalProject/soccer_data/database.sqlite
+FinalProject/soccer_data/migration_artifacts/csv/Match.csv
+FinalProject/soccer_data/migration_artifacts/csv/Player_Attributes.csv
+
+# Course PDF textbook (not redistributable)
+ullman_the_complete_book.pdf
+
+# Temp extract dumps from docx tooling
+FinalProject/_hw4_dump.txt
+FinalProject/_hw4_extract.txt
+FinalProject/_hw4_paras.txt
+FinalProject/_hw4_check.txt

@@ -1,0 +1,79 @@
+===== Page 1 =====
+Conceptual Design
+Esme Basnet
+Credit and thank you go to Professor Bruce Irvinfrom Portland State University for generously providing me with this material.
+
+
+===== Page 2 =====
+ER Modeling
+Entity Relationship (ER) modeling is useful for conceptual design
+Some companies use ER models to document their ontologies, their agreed sets 
+of jargon and concepts about their business.
+Others use it as a clean technology-independent mechanism for designing 
+databases.
+Multiple types of graphical representation of ER diagrams
+Multiple helpful tools, including draw.io which we use in this class.
+
+
+===== Page 3 =====
+For this class
+Use https://draw.io/
+
+
+===== Page 4 =====
+Entities
+Represent nouns, things that the enterprise cares about. 
+Entity Set represents the type/class of nouns and an entity represents a specific 
+instance of that type.  And often we use the word “entity” interchangeably for both! 
+Sorry!
+Something that can be identified independently
+Can be physical or logical
+Usually has a primary key
+Corresponds to a table in a relational database
+
+
+===== Page 5 =====
+Example
+Agents have names and home locations. They speak languages and do so with 
+varying fluency.
+
+
+===== Page 6 =====
+
+
+
+===== Page 7 =====
+Entities
+
+
+===== Page 8 =====
+Relationship
+
+
+===== Page 9 =====
+Cardinality: many to many
+
+
+===== Page 10 =====
+Cardinality: 1 to 1
+
+
+===== Page 11 =====
+Cardinality: 1 to Many
+
+
+===== Page 12 =====
+Relationships Can be Circular
+
+
+===== Page 13 =====
+Weak Entities
+WEs are a way for Entity Relationship systems to represent hierarchies, HasA 
+relationships and IsA relationships.
+A WE is an entity that only make sense when another related entity exists. I.e., it 
+should be deleted whenever the related entity is deleted.
+Might not have it’s own primary key (i.e., it’s foreign key reference to the related 
+entity helps to form it’s primary key)
+
+
+===== Page 14 =====

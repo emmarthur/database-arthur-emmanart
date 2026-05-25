@@ -1,0 +1,866 @@
+===== Page 1 =====
+Esme Basnet CS486/586 Intro DBMS
+CS 486/586
+Chapter 7
+Joining Tables
+How to retrieve data from two or more tables
+Credit and thank you go to Professor R.Jesse Chaneyfrom Portland State University for generously providing me with this material.
+
+
+===== Page 2 =====
+Esme Basnet CS486/586 Intro DBMS
+Using joins, you retrieve data from two or more tables 
+based on logical relationships between the tables.
+Joins indicate how data from one table is used to 
+select the rows in another table.
+The relationships may be explicitly defined 
+in the database or may only be implicit as 
+part of a query (ad hoc).
+
+
+===== Page 3 =====
+Esme Basnet CS486/586 Intro DBMS
+• Specifying the column (or columns) from each table to be 
+used for the join. 
+• A typical join condition specifies a foreign key from 
+one table and its associated (primary) key in the 
+other table.
+• Specifying a logical operator (for example, = or <>,) to be 
+used in comparing values from the columns.
+A join condition defines the way two tables are related in 
+a query by:
+
+
+===== Page 4 =====
+Esme Basnet CS486/586 Intro DBMS
+Joining a table with itself.
+Terms to know about joins
+∙ Join
+∙ Join condition
+∙ Inner join
+∙ Ad hoc relationship
+∙ Table alias
+∙ Schema
+∙ Self-join
+∙ Explicit syntax
+∙ Implicit syntax
+These are the columns used to join the tables in the query.
+There are additional types of joins.
+A relationship used in a query that is not expressed in the database.
+The inner join is what is in common 
+between the tables.
+You can think of a schema like a directory containing objects.
+
+
+===== Page 5 =====
+Esme Basnet CS486/586 Intro DBMS
+There are 5 types of standard ANSI standard joins:
+You will be asked to list and diagram these several times 
+during the term.
+You might as well imprint them on your mind now.
+1. INNER JOIN (the default, typically just JOIN)
+2. LEFT OUTER JOIN (typically just LEFT JOIN)
+3. RIGHT OUTER JOIN (typically just RIGHT JOIN)
+4. FULL OUTER JOIN (typically just FULL JOIN)
+5. CROSS JOIN (typically just CROSS)
+
+
+===== Page 6 =====
+Esme Basnet CS486/586 Intro DBMS
+The INNER Join
+This is the result set. It is what is in common between the tables.
+The result set consists of the rows from both tables that match 
+the join conditions.
+
+
+===== Page 7 =====
+Esme Basnet CS486/586 Intro DBMS
+Joins
+Inner joins return rows only when there is at least one row 
+from both tables that matches the join condition.
+• Inner joins eliminate the rows that do not match with a 
+row from the other table. 
+Outer joins return all rows from at least one of the tables or 
+views mentioned in the FROM clause, as long as those rows 
+meet any WHERE or HAVING search conditions. 
+• All rows are retrieved from the left table referenced with 
+a left outer join, and all rows from the right table 
+referenced in a right outer join. 
+• All rows from both tables are returned in a full outer join.
+
+
+===== Page 8 =====
+Esme Basnet CS486/586 Intro DBMS
+Outer Joins, Venn Diagrams
+A left outer join returns all 
+the rows from the left table 
+and rows matching the join 
+condition from the right 
+table.
+A right outer join returns all 
+the rows from the right table 
+and rows matching the join 
+condition from the left table.
+A full outer join
+
+
+===== Page 9 =====
+Esme Basnet CS486/586 Intro DBMS
+Table 1 Table 2X
+The CROSS Join
+The tables in a CROSS JOIN don’t 
+need to have any rows that match a 
+join condition.
+Actual cross join result.
+The CROSS JOIN matches each value 
+in the left table to each value in the right 
+table, a cartesian product of the 2 tables.
+
+
+===== Page 10 =====
+Esme Basnet CS486/586 Intro DBMS
+Linking Tables Using JOIN
+SELECT *
+FROM table_a 
+JOIN table_b
+ ON table_a.key_column = 
+table_b.foreign_key_column;
+The join condition, defaults to inner
+Common syntax
+This is the explicit syntax
+
+
+===== Page 11 =====
+Esme Basnet CS486/586 Intro DBMS
+CREATE TABLE chap_07_examples.departments (
+    dept_id integer,
+    dept text,
+    city text,
+    CONSTRAINT dept_key PRIMARY KEY (dept_id),
+    CONSTRAINT dept_city_unique UNIQUE (dept, city)
+);
+CREATE TABLE chap_07_examples.employees (
+    emp_id integer,
+    first_name text,
+    last_name text,
+    salary numeric(10,2),
+    dept_id integer 
+ REFERENCES chap_07_examples.departments (dept_id),
+    CONSTRAINT emp_key PRIMARY KEY (emp_id)
+);
+
+
+===== Page 12 =====
+Esme Basnet CS486/586 Intro DBMS
+
+
+===== Page 13 =====
+Esme Basnet CS486/586 Intro DBMS
+INSERT INTO chap_07_examples.departments
+VALUES
+    ( 1, 'Tax', 'Atlanta'),
+    ( 2, 'IT', 'Boston');
+INSERT INTO chap_07_examples.employees
+VALUES
+    (1, 'Julia', 'Reyes', 115300,   1),
+    (2, 'Janet', 'King', 98000,     1),
+    (3, 'Arthur', 'Pappas', 72700,  2),
+    (4, 'Michael', 'Taylor', 89500, 2);
+The pk from the 
+departments table
+
+
+===== Page 14 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.departments
+    JOIN chap_07_examples.employees 
+        ON departments.dept_id = employees.dept_id
+ORDER BY employees.dept_id;
+
+
+===== Page 15 =====
+Esme Basnet CS486/586 Intro DBMS
+employeesdepartments
+departments.dept_id = employees.dept_id
+The INNER JOIN of employees and departments
+
+
+===== Page 16 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.departments
+    JOIN chap_07_examples.employees
+        ON  departments.dept_id = employees.dept_id
+ORDER BY employees.dept_id;
+emp_i
+d
+first_nam
+e
+last_nam
+e salary dept_id dept_id dept city
+1 Julia Reyes 115,300 1 1 Tax Atlanta
+2 Janet King 98,000 1 1 Tax Atlanta
+3 Arthur Pappas 72,700 2 2 IT Boston
+4 Michael Taylor 89,500 2 2 IT Boston
+A JOIN defaults to INNER JOIN
+
+
+===== Page 17 =====
+Esme Basnet CS486/586 Intro DBMS
+CREATE TABLE IF NOT EXISTS chap_07_examples.district_2020 
+(
+    id integer CONSTRAINT id_key_2020 PRIMARY KEY,
+    school_2020 text
+);
+CREATE TABLE IF NOT EXISTS chap_07_examples.district_2035 
+(
+    id integer CONSTRAINT id_key_2035 PRIMARY KEY,
+    school_2035 text
+);
+No explicit relationship is declared.
+
+
+===== Page 18 =====
+Esme Basnet CS486/586 Intro DBMS
+INSERT INTO chap_07_examples.district_2020 VALUES
+(1, 'Oak Street School'),
+(2, 'Roosevelt High School'),
+(5, 'Dover Middle School'),
+(6, 'Webutuck High School');
+INSERT INTO chap_07_examples.district_2035 VALUES
+(1, 'Oak Street School'),
+(2, 'Roosevelt High School'),
+(3, 'Morrison Elementary'),
+(4, 'Chase Magnet Academy'),
+(6, 'Webutuck High School');
+No explicit relationship is declared, but there is an implicit relationship 
+within the data.
+
+
+===== Page 19 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+6 Webutuck High School 6 Webutuck High School
+
+
+===== Page 20 =====
+Esme Basnet CS486/586 Intro DBMS
+district_2020 district_2035
+district_2020.id = district_2035.id
+The INNER JOIN of district_2020 and district_2035
+
+
+===== Page 21 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020
+    , chap_07_examples.district_2035
+WHERE district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2
+Roosevelt High 
+School
+2
+Roosevelt High 
+School
+6
+Webutuck High 
+School
+6
+Webutuck High 
+School
+The implicit syntax for an INNER JOIN
+Unless I specifically request the implicit syntax, you must use the 
+explicit syntax. I will count the implicit syntax as incorrect.
+
+
+===== Page 22 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+JOIN chap_07_examples.district_2035
+ ON district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+SELECT *
+FROM chap_07_examples.district_2020
+, chap_07_examples.district_2035
+WHERE district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+Explicit syntax
+Implicit syntax
+
+
+===== Page 23 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    INNER JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+6 Webutuck High School 6 Webutuck High School
+If you don’t specify the type of join, the 
+default is to use an INNER JOIN.
+
+
+===== Page 24 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    JOIN chap_07_examples.district_2035
+        USING (id)
+ORDER BY district_2020.id;
+id school_2020 school_2035
+1 Oak Street School Oak Street School
+2 Roosevelt High School Roosevelt High School
+6 Webutuck High School Webutuck High School
+If you’re using identical 
+column names in a join’s ON 
+clause, you can reduce 
+redundant output and simplify 
+the query syntax by 
+substituting a USING clause in 
+place of the ON clause
+
+
+===== Page 25 =====
+Esme Basnet CS486/586 Intro DBMS
+district_2020 district_2035
+district_2020.id = district_2035.id
+A LEFT OUTER Join
+Rows from 
+district_2020 
+that don’t match a row 
+in district_2035
+
+
+===== Page 26 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    LEFT JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+5 Dover Middle School  NULL NULL 
+6 Webutuck High School 6 Webutuck High School
+A left outer join returns all the 
+rows from the left table and rows 
+matching the join condition from 
+the right table. Unmatched values 
+from the right table show up as 
+NULLs in the result.
+The NULL values are returned in the result set 
+where there is not a matching row in the right table.
+
+
+===== Page 27 =====
+Esme Basnet CS486/586 Intro DBMS
+district_2020 district_2035
+district_2020.id = district_2035.id
+A RIGHT OUTER Join
+Rows from 
+district_2035 
+that don’t match a row 
+in district_2020
+
+
+===== Page 28 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    RIGHT JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+ORDER BY district_2035.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+ NULL NULL 3 Morrison Elementary
+ NULL NULL 4 Chase Magnet 
+Academy
+6 Webutuck High School 6 Webutuck High School
+A right outer join returns all the 
+rows from the right table and 
+rows matching the join condition 
+from the left table. Unmatched 
+values from the left table show 
+up as NULLs in the result.
+The NULL values are returned in the result set 
+where there is not a matching row in the left table.
+
+
+===== Page 29 =====
+Esme Basnet CS486/586 Intro DBMS
+district_2020 district_2035
+district_2020.id = district_2035.id
+A FULL OUTER Join
+Rows from 
+district_2035 
+that don’t match a row 
+in district_2020 
+Rows from 
+district_2020 
+that don’t match a row 
+in district_2035
+
+
+===== Page 30 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    FULL OUTER JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+ORDER BY district_2020.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+5 Dover Middle School  NULL  NULL
+6 Webutuck High School 6 Webutuck High School
+ NULL  NULL 4 Chase Magnet Academy
+ NULL  NULL 3 Morrison Elementary
+A FULL OUTER JOIN gives 
+you all the data that matches 
+from both tables. The 
+unmatched data from the left 
+table shows up as NULLs. The 
+unmatched data from the right 
+table shows up as NULLs.
+
+
+===== Page 31 =====
+Esme Basnet CS486/586 Intro DBMS
+Table 1 Table 2X
+The CROSS Join
+The tables in a cross join don’t need to 
+have any rows that match a join 
+condition.
+Actual cross join result.
+I think of the cross join as this. The 
+explosion of the amount of data 
+you just received from the query.
+
+
+===== Page 32 =====
+Esme Basnet CS486/586 Intro DBMS
+Result 
+AW  AX  AY  AZ 
+BW  BX  BY  BZ 
+CW  CX  CY  CZ 
+DW  DX  DY  DZ 
+EW  EX  EY  EZ 
+A
+B
+C
+D
+E
+W
+X
+Y
+Z
+XTable 1 Table 2
+If we just match the rows pairwise, we come up come 
+up with 5 * 4 pairs.
+That is why it is called a Cartesian product of the rows.
+The CROSS Join
+
+
+===== Page 33 =====
+Esme Basnet CS486/586 Intro DBMS
+A CROSS Join
+SELECT *
+FROM chap_07_examples.district_2020 
+    CROSS JOIN chap_07_examples.district_2035
+ORDER BY district_2020.id, district_2035.id;
+
+
+===== Page 34 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    CROSS JOIN chap_07_examples.district_2035
+ORDER BY district_2020.id, district_2035.id;
+id school_2020 id school_2035
+1 Oak Street School 1 Oak Street School
+1 Oak Street School 2 Roosevelt High School
+1 Oak Street School 3 Morrison Elementary
+1 Oak Street School 4 Chase Magnet Academy
+1 Oak Street School 6 Webutuck High School
+2 Roosevelt High School 1 Oak Street School
+2 Roosevelt High School 2 Roosevelt High School
+2 Roosevelt High School 3 Morrison Elementary
+2 Roosevelt High School 4 Chase Magnet Academy
+2 Roosevelt High School 6 Webutuck High School
+5 Dover Middle School 1 Oak Street School
+5 Dover Middle School 2 Roosevelt High School
+5 Dover Middle School 3 Morrison Elementary
+5 Dover Middle School 4 Chase Magnet Academy
+5 Dover Middle School 6 Webutuck High School
+6 Webutuck High School 1 Oak Street School
+6 Webutuck High School 2 Roosevelt High School
+6 Webutuck High School 3 Morrison Elementary
+6 Webutuck High School 4 Chase Magnet Academy
+6 Webutuck High School 6 Webutuck High School
+
+
+===== Page 35 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT * 
+FROM chap_07_examples.district_2020
+, chap_07_examples.district_2035
+ORDER BY district_2020.id, district_2035.id;
+There are no join clauses. 
+It is very easy to write a query like this and return much more data 
+than you anticipate.
+No JOIN clause and no WHERE clause.
+The implicit syntax for a CROSS JOIN
+
+
+===== Page 36 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    LEFT JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+WHERE district_2035.id IS NULL;
+id school_2020 id school_2035
+5
+Dover Middle 
+School
+ NULL NULL 
+We can combine an outer join and a 
+where clause to quickly identify values 
+missing from one of the tables.
+
+
+===== Page 37 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT *
+FROM chap_07_examples.district_2020 
+    RIGHT JOIN chap_07_examples.district_2035
+        ON district_2020.id = district_2035.id
+WHERE district_2020.id IS NULL;
+id school_2020 id school_2035
+ NULL  NULL 3 Morrison Elementary
+ NULL  NULL 4 Chase Magnet Academy
+Doing the same thing, but 
+identifying missing value from the 
+left table.
+
+
+===== Page 38 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT d20.id, d20.school_2020, d35.school_2035
+FROM chap_07_examples.district_2020 AS d20 
+    LEFT JOIN chap_07_examples.district_2035 AS d35
+        ON d20.id = d35.id
+ORDER BY d20.id;
+id school_2020 school_2035
+1 Oak Street School Oak Street School
+2 Roosevelt High School Roosevelt High School
+5 Dover Middle School  NULL
+6 Webutuck High School Webutuck High School
+
+
+===== Page 39 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT d20.id, d20.school_2020, en.enrollment, gr.grades
+FROM chap_07_examples.district_2020 AS d20 
+    JOIN chap_07_examples.district_2020_enrollment AS en
+        ON d20.id = en.id
+    JOIN chap_07_examples.district_2020_grades AS gr
+        ON d20.id = gr.id
+ORDER BY d20.id;
+id school_2020 enrollment grades
+1 Oak Street School 360 K-3
+2 Roosevelt High 
+School 1,001 9-12
+5 Dover Middle School 450 6-8
+6 Webutuck High 
+School 927 9-12
+Three tables means 2 join conditions.
+
+
+===== Page 40 =====
+Esme Basnet CS486/586 Intro DBMS
+Understanding the Three Types of Table Relationships
+One-to-One Relationship
+• A value in a table maps to 0 or 1 row in a table.
+One-to-Many Relationship
+• A value in a parent-table maps to 0 or more rows in a 
+child-table.
+Many-to-Many Relationship
+• Many values in one table map to many values in another table.
+
+
+===== Page 41 =====
+Esme Basnet CS486/586 Intro DBMS
+One-to-many relationship
+Each department can have zero or more employees. The mapping is 
+from one department to, potentially, many employees.
+
+
+===== Page 42 =====
+Esme Basnet CS486/586 Intro DBMS
+CREATE TABLE chap_07_examples.departments (
+    dept_id integer,
+    dept text,
+    city text,
+    CONSTRAINT dept_key PRIMARY KEY (dept_id),
+    CONSTRAINT dept_city_unique UNIQUE (dept, city)
+);
+CREATE TABLE chap_07_examples.employees (
+    emp_id integer,
+    first_name text,
+    last_name text,
+    salary numeric(10,2),
+    dept_id integer 
+ REFERENCES chap_07_examples.departments (dept_id),
+    CONSTRAINT emp_key PRIMARY KEY (emp_id)
+);
+
+
+===== Page 43 =====
+Esme Basnet CS486/586 Intro DBMS
+One-to-one relationship
+A teacher can have a teacher_photo. The photos  are stored in a 
+different table. A teacher cannot have more than 1 photo.
+
+
+===== Page 44 =====
+Esme Basnet CS486/586 Intro DBMS
+CREATE TABLE if not exists teachers.teachers ( 
+id int generated by default as identity primary key
+, first_name varchar(25)
+, last_name varchar(50)
+, school varchar(50)
+, hire_date date
+, salary numeric
+);
+CREATE TABLE if not exists teachers.teachers_photo ( 
+id int primary key
+, photo bytea
+, constraint id_fk foreign key(id) REFERENCES teachers.teachers (id)
+);
+
+
+===== Page 45 =====
+Esme Basnet CS486/586 Intro DBMS
+Many-to-many relationship
+We have many classes. We have many students. A class can have zero or 
+more students. A student can have zero or more classes.
+We have a linking table between students and classes to represent the 
+1-to-many on each side.
+The linking table has a 1-to-many 
+relationship on each side. The 
+result is a many-to-many 
+relationship between the other 2 
+tables.
+
+
+===== Page 46 =====
+Esme Basnet CS486/586 Intro DBMS
+CREATE TABLE if not exists teachers.classes (
+id int GENERATED BY DEFAULT AS IDENTITY primary key,
+short_name varchar(25) NULL,
+long_name text NULL
+);
+CREATE TABLE if not exists teachers.students (
+id int GENERATED BY DEFAULT AS IDENTITY primary key,
+first_name varchar(25) NULL,
+last_name varchar(50) NULL
+);
+CREATE TABLE if not exists teachers.students_classes (
+student_id int NOT NULL,
+class_id int NOT NULL,
+CONSTRAINT students_classes_pk PRIMARY KEY ( student_id, class_id),
+CONSTRAINT classes_fk FOREIGN KEY ( class_id) REFERENCES teachers.classes(id),
+CONSTRAINT student_fk FOREIGN KEY ( student_id) REFERENCES teachers.students(id)
+);
+
+
+===== Page 47 =====
+Esme Basnet CS486/586 Intro DBMS
+select * 
+from teachers.students as s
+join teachers.students_classes as sc
+ on s.id = sc.student_id 
+join teachers.classes as c
+ on sc.class_id = c.id 
+;
+
+
+===== Page 48 =====
+Esme Basnet CS486/586 Intro DBMS
+The Set Operators in SQL
+UNION EXCEPTINTERSECT
+Combine the results 
+of 2 queries.
+What do 2 queries 
+have in common.
+Remove from the 
+left common entries 
+from the right.
+
+
+===== Page 49 =====
+Esme Basnet CS486/586 Intro DBMS
+The syntax for a union operation
+    SELECT_statement_1
+UNION [ALL]
+    SELECT_statement_2
+[UNION [ALL]
+    SELECT_statement_3]...
+[ORDER BY order_by_list]
+UNION removes duplicate records (where all columns 
+in the result set are the same), UNION ALL does not.
+There is a performance hit when using UNION vs 
+UNION ALL, since the database server must do 
+additional work to remove the duplicate rows.
+Rules for a union
+• Each result set must return the same number of columns.
+• The corresponding columns in each result set must have compatible 
+data types.
+• The column names in the final result set are taken from the first 
+SELECT clause.
+
+
+===== Page 50 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT * FROM chap_07_examples.district_2020
+UNION
+    SELECT * FROM chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+1 Oak Street School
+2 Roosevelt High School
+3 Morrison Elementary
+4 Chase Magnet Academy
+5 Dover Middle School
+6 Webutuck High School
+Column names come from the first query.
+Duplicates are automatically 
+removed with a UNION.
+
+
+===== Page 51 =====
+Esme Basnet CS486/586 Intro DBMS
+SELECT * 
+FROM chap_07_examples.district_2020
+SELECT * 
+FROM chap_07_examples.district_2035
+
+
+===== Page 52 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT * FROM chap_07_examples.district_2020
+UNION ALL
+    SELECT * FROM chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+1 Oak Street School
+1 Oak Street School
+2 Roosevelt High School
+2 Roosevelt High School
+3 Morrison Elementary
+4 Chase Magnet Academy
+5 Dover Middle School
+6 Webutuck High School
+6 Webutuck High School
+Duplicates are NOT 
+automatically removed 
+with a UNION ALL.
+
+
+===== Page 53 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT * FROM 
+chap_07_examples.district_2020
+UNION
+    SELECT * FROM 
+chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+1 Oak Street School
+ 
+2 Roosevelt High School
+ 
+3 Morrison Elementary
+4 Chase Magnet Academy
+5 Dover Middle School
+6 Webutuck High School
+ 
+    SELECT * FROM 
+chap_07_examples.district_2020
+UNION ALL
+    SELECT * FROM 
+chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+1 Oak Street School
+1 Oak Street School
+2 Roosevelt High School
+2 Roosevelt High School
+3 Morrison Elementary
+4 Chase Magnet Academy
+5 Dover Middle School
+6 Webutuck High School
+6 Webutuck High School
+UNION vs UNION ALL
+
+
+===== Page 54 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT *, '2020' as year FROM chap_07_examples.district_2020
+UNION ALL
+    SELECT *, '2035' FROM chap_07_examples.district_2035
+ORDER BY id;
+id school_2020 year
+1 Oak Street School 2020
+1 Oak Street School 2035
+2 Roosevelt High School 2035
+2 Roosevelt High School 2020
+3 Morrison Elementary 2035
+4 Chase Magnet Academy 2035
+5 Dover Middle School 2020
+6 Webutuck High School 2020
+6 Webutuck High School 2035
+
+
+===== Page 55 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT * FROM chap_07_examples.district_2020
+INTERSECT
+    SELECT * FROM chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+1 Oak Street School
+2 Roosevelt High School
+6 Webutuck High School
+The 2 result sets have some common rows. 
+Show only the common rows.
+
+
+===== Page 56 =====
+Esme Basnet CS486/586 Intro DBMS
+    SELECT * FROM chap_07_examples.district_2020
+EXCEPT
+    SELECT * FROM chap_07_examples.district_2035
+ORDER BY id;
+id school_2020
+5 Dover Middle School
+Remove from the left result set all the rows that are also 
+in the right result set.

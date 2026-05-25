@@ -1,0 +1,133 @@
+FINAL PROJECT OVERVIEW
+Team Policy:
+Undergraduate students may complete the final project either individually or in groups of
+up to 3 students. In a group, everyone must participate equally. If unequal participation is
+found, the entire group will be penalized.
+Graduate students are required to complete the project individually.
+Big idea
+You will choose a real dataset (or combine multiple related datasets) and build a well-designed
+relational database around it. You'll start with a messy, conceptual design and refine it into a
+normalized schema. Undergraduate projects are expected to include at least 1,000 total rows,
+while graduate projects must successfully load at least 10,000 total rows. You will also
+demonstrate SQL mastery through a large set of English-to-SQL queries Finally, you'll present
+what you built, what broke, and what you learned.
+Dataset rules
+● Must be publicly available and cited (link in your submission).
+● Must produce a relational model with 6–10 tables after normalization (typical).
+● Must have enough complexity to support interesting queries (not just one table).
+● You may combine datasets if they share a key or can be linked cleanly (e.g., movies +
+ratings, transit + stops + schedules, sports + games + players, etc.).
+● You must include a short data dictionary: what each table represents and what key fields
+mean.
+Recommended sources (students can pick one):
+● Kaggle datasets
+● data.gov (US government open data)
+
+-- 1 of 5 --
+
+● city open data portals (e.g., Portland)
+● public APIs with downloadable dumps
+● IMDb datasets, OpenFlights, open transit feeds (GTFS), etc.
+Undergrad vs Grad difficulty
+Undergrad expectations
+● 30 English questions + SQL solutions
+● At least:
+○ 15 basic queries (filters, sorts, joins)
+○ 15 advanced (GROUP BY/HAVING, multi-joins, subqueries, 1 view)
+Grad expectations (adds depth + performance)
+Everything above plus:
+● 40 English questions + SQL solutions
+● Must include:
+○ 10 basic queries (filters, sorts, joins)
+○ 15 intermediate (GROUP BY/HAVING, multi-joins, subqueries, 1 view)
+○ 15 advanced(CTEs, subqueries, more views if needed, materialized views, query
+tuning like indexing, Stored Procedure/Functions)
+● Must include constraints beyond PK/FK (at least 3), such as:
+○ CHECK constraints (ranges, non-negative, valid statuses)
+○ UNIQUE constraints where appropriate
+
+-- 2 of 5 --
+
+○ NOT NULL where appropriate
+The 4 Deliverables
+Deliverable 1
+1.1. Select a subject area on which you wish to build a database. Write one or two
+paragraphs that gives a general description / background information on that subject
+area.
+1.2. For Undergrad: Go through your dataset and submit your 20 questions in Plain English
+that you can generate from the dataset.
+For Grad: Go through your dataset and submit your 30 questions in Plain English that you can
+generate from the dataset.
+These English questions should reflect realistic questions that someone might ask about the
+domain. You will translate the questions from this part into queries of the project data. You are
+permitted to revise these questions later if needed. It is difficult to predict what questions you will
+be able to answer until later in the project, but this is a starting point.
+1.3. Describe what source you intend to use for data, and how you intend to ingest the
+data into your database. You should choose a subject area where you can easily get
+several hundred rows of data. This should be written as another paragraph and should include
+specific details, such as the website or organization where you will find the data and the format
+of the data. Include a link to your data source so I can browse it too. You do not want to
+get to week 10 and then "discover" that you cannot find the data or cannot load it. If
+you cannot find available data, it is likely time for you to change subject areas.
+Deliverable 2
+2.1. Produce an ER diagram for your domain, and its translation into a relational schema,
+including all primary keys, unique keys, and foreign keys. You should aim for a
+database with 6 – 10 tables and at least 1 view. You must submit evidence that you
+have created at least one table from your schema and populated it with at least one
+row. You will create your tables in a new schema for the project.
+2.2. Load real data into your database. I have a VERY strong preference that you find your
+data from actual resources. Do not just mock all your data. You must show 5 rows of
+data for each table and view and row counts. Anticipate a row count of your database
+(sum of all rows from all tables) to be at least 1,000 for undergrad and 10,000 for grad. If at the
+end I find you mocked all your data, it will adversely affect your grade.
+
+-- 3 of 5 --
+
+Deliverable 3
+3.1. Express your questions as SQL. At this point you may need to revise your
+questions (from 1.2) to map to your available data. It is okay to change your questions
+after you have found and loaded data. You wrote questions before you had a chance to see if
+the data could answer the questions. If you need to replace a question, state
+why you are replacing it and provide the new question.
+3.2. If all of your questions turn out to be just simple single table queries, you either have
+questions that are too simple or you did a poor job normalizing your data. This will
+adversely affect your grade. You should have MANY queries that involve multiple tables
+in joins. I expect to see joins of 4-6 tables to answer the questions for your project. The
+required view should join at least 4 tables.
+Deliverable 4
+4.1. Create a final writeup of your project. For the most part, this deliverable is the
+accumulation of the deliverables up to this. The final writeup should include:
+4.1.1. The Final ER diagram as you actually implemented it.
+4.1.2. Table create statements with primary keys, unique keys, and foreign keys for all
+tables in your project. This should also include all create view statements (you'll
+need at least one).
+4.1.3. Create Index statements for all indexes you created for your project.
+4.1.4. A thorough description of how you populated the database.
+4.1.5. For each of your questions, the questions in English, their translation to SQL and the full
+answer to the query(or the first 10 rows). If you needed to change any
+of your original questions, list the original questions and why you needed to
+change or replace them.
+4.1.6. A listing of 5 rows from each of your tables and row counts of all tables
+Final Presentation (Video)
+Length: 8 minutes per team (strictly 8 mins)
+Must include:
+1. Dataset overview + why you chose it
+2. Show initial ERD → final ERD (what changed)
+3. Demo a few tables + row counts
+
+-- 4 of 5 --
+
+4. Demo 2 queries ( one intermediate and one advanced)
+5. Discuss:
+○ hardest part
+○ what you learned
+○ how confident you feel with SQL now
+○ what you would do next with more time
+Grading breakdown
+● Deliverable 1: 10%
+● Deliverable 2: 20%
+● Deliverable 3: 20%
+● Deliverable 4: 35%
+● Final presentation: 15%
+
+-- 5 of 5 --

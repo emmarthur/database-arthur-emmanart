@@ -1,0 +1,102 @@
+This In Class Activity is due at the end of class today.
+
+Student 1 name and ODIN id: __________________________________________
+
+
+Translate the given English language query to SQL and run the SQL with your Spy database. Indicate the number of rows returned by the query and provide a screenshot of the first 5 rows returned by the query. If the query returns fewer than 5 rows then list all of the rows returned.
+
+The next few questions refer to “active European agents”. This collection of agents consists of agents stationed in European countries (Turkey, Spain, England, Germany, Greece, France, Holland, Italy, Luxembourg, Poland or Russia) who are part of one or more ongoing missions. 
+
+Create a View called ActiveEuros consisting of only active European agents. Show your SQL here.
+
+
+
+
+
+
+
+
+
+
+
+
+For each of the following, show your SQL and the query result. 
+
+(a) how many European agents are active?
+
+
+
+
+
+
+
+
+
+
+
+
+
+(b) how many active European agents are stationed in France or Germany?
+ 
+
+
+
+
+
+
+
+
+
+
+(c) what is the average salary for an active European agent?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(d) what is the most prevalent skill possessed by active European agents and how many active European agents have that skill?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(e) Of the skills listed in the database, which skills are not possessed by any active European agents?
+
+
+
+
+
+
+
+
+

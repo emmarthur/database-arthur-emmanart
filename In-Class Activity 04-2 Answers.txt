@@ -1,0 +1,143 @@
+in-class activity 04-2 answers
+
+student 1 name and odin id: emmanuel arthur, emmanart
+
+1) create a view called activeeuros consisting of only active european agents
+
+```sql
+create or replace view activeeuros as
+select distinct
+    a.agent_id,
+    a.first,
+    a.middle,
+    a.last,
+    a.address,
+    a.city,
+    a.country,
+    a.salary,
+    a.clearance_id
+from agent as a
+join teamrel as tr
+    on a.agent_id = tr.agent_id
+join mission as m
+    on tr.team_id = m.team_id
+where lower(a.country) in (
+    'turkey',
+    'spain',
+    'england',
+    'germany',
+    'greece',
+    'france',
+    'holland',
+    'italy',
+    'luxembourg',
+    'poland',
+    'russia'
+)
+and lower(m.mission_status) = 'ongoing';
+```
+
+2a) how many european agents are active?
+
+```sql
+select count(*) as active_european_agents
+from activeeuros;
+```
+
+```sql
+select *
+from activeeuros
+order by agent_id
+limit 5;
+```
+
+2b) how many active european agents are stationed in france or germany?
+
+```sql
+select count(*) as active_euros_fr_or_de
+from activeeuros
+where lower(country) in ('france', 'germany');
+```
+
+```sql
+select *
+from activeeuros
+where lower(country) in ('france', 'germany')
+order by country, agent_id
+limit 5;
+```
+
+2c) what is the average salary for an active european agent?
+
+```sql
+select round(avg(salary)::numeric, 2) as avg_active_euro_salary
+from activeeuros;
+```
+
+```sql
+select agent_id, first, last, country, salary
+from activeeuros
+order by salary desc
+limit 5;
+```
+
+2d) what is the most prevalent skill possessed by active european agents and how many active european agents have that skill?
+
+```sql
+select
+    s.skill,
+    count(distinct ae.agent_id) as agent_count
+from activeeuros as ae
+join skillrel as sr
+    on ae.agent_id = sr.agent_id
+join skill as s
+    on sr.skill_id = s.skill_id
+group by s.skill
+order by agent_count desc, s.skill
+limit 1;
+```
+
+```sql
+select
+    s.skill,
+    count(distinct ae.agent_id) as agent_count
+from activeeuros as ae
+join skillrel as sr
+    on ae.agent_id = sr.agent_id
+join skill as s
+    on sr.skill_id = s.skill_id
+group by s.skill
+order by agent_count desc, s.skill
+limit 5;
+```
+
+2e) of the skills listed in the database, which skills are not possessed by any active european agents?
+
+```sql
+select s.skill
+from skill as s
+left join skillrel as sr
+    on s.skill_id = sr.skill_id
+left join activeeuros as ae
+    on sr.agent_id = ae.agent_id
+group by s.skill
+having count(ae.agent_id) = 0
+order by s.skill;
+```
+
+```sql
+select s.skill
+from skill as s
+left join skillrel as sr
+    on s.skill_id = sr.skill_id
+left join activeeuros as ae
+    on sr.agent_id = ae.agent_id
+group by s.skill
+having count(ae.agent_id) = 0
+order by s.skill
+limit 5;
+```
+
+note:
+- run each main query in your spy database to get the exact row count/value.
+- then use the matching limit 5 query for your screenshot.

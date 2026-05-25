@@ -1,0 +1,1227 @@
+Pre-Exam: All Handouts Coverage (Mixed Format)
+Course: CS486/586 Intro DBMS
+Question types are intentionally mixed: MC, TF, SA, FIB.
+
+1. [MC] Which statement is DDL?
+A) SELECT
+B) INSERT
+C) CREATE TABLE
+D) UPDATE
+
+A)
+Feedback: Incorrect. The correct answer is C) CREATE TABLE. SELECT/INSERT/UPDATE are DML
+in this course.
+Ref: `Handouts/Ch2.1 Basic Queries` (DML vs DDL slide).
+Grade: 0/1
+
+2. [TF] JOIN without a qualifier defaults to INNER JOIN.
+True
+Feedback: Correct. Plain JOIN defaults to INNER JOIN.
+Grade: 1/1
+
+3. [SA] Explain the difference between a database and a DBMS.
+a dbms is the entity that manages the database whereas the database stores data in an organized manner
+Feedback: Correct. Good distinction. Stronger wording: database = organized data; DBMS =
+software that creates, queries, secures, and manages it.
+Grade: 1/1
+
+4. [FIB] The correct class order of SELECT clauses is: SELECT, FROM, WHERE, ORDERBY, LIMIT, OFFSET.
+Feedback: Correct sequence. Small fix: write ORDER BY (with a space).
+Grade: 1/1
+
+5. [MC] Which clause filters rows?
+A) ORDER BY
+B) WHERE
+C) LIMIT
+D) OFFSET
+
+B)
+Feedback: Correct. WHERE filters rows.
+Grade: 1/1
+
+6. [TF] WHERE col = NULL is valid SQL syntax.
+
+True
+Feedback: Incorrect. It should be False. Use IS NULL / IS NOT NULL, not = NULL.
+Ref: `Handouts/Ch2.1 Basic Queries` (NULL comparison slide).
+Grade: 0/1
+
+7. [SA] Why is inconsistency a problem in file-based systems?
+
+Because one change in a particular file may not reflect properly in another file 
+Feedback: Correct. That is exactly the inconsistency problem.
+Grade: 1/1
+
+8. [FIB] To test for missing values, use IS NULL.
+Feedback: Correct.
+Grade: 1/1
+
+9. [MC] Which join returns only matching rows from both tables?
+A) LEFT JOIN
+B) RIGHT JOIN
+C) FULL JOIN
+D) INNER JOIN
+
+D)
+Feedback: Correct. INNER JOIN returns only matching rows from both tables.
+Grade: 1/1
+
+10. [TF] ORDER BY is optional, and if omitted, row order is still guaranteed.
+False
+Feedback: Correct. Without ORDER BY, row order is not guaranteed.
+Grade: 1/1
+
+11. [SA] Define primary key in one sentence.
+Primary keys are used to uniquely identify rows which must not be NULL
+Feedback: Correct. Clear and accurate.
+Grade: 1/1
+
+12. [FIB] A primary key uniquely identifies a row in a table.
+Feedback: Correct.
+Grade: 1/1
+
+13. [MC] Which join returns all rows from the left and matching rows from the right?
+A) INNER JOIN
+B) LEFT JOIN
+C) CROSS JOIN
+D) FULL JOIN
+
+B)
+Feedback: Correct. LEFT JOIN returns all rows from the left and matches from the right.
+Grade: 1/1
+
+14. [TF] DISTINCT applies to the full selected row combination.
+False
+Feedback: Incorrect. It should be True. DISTINCT applies to the entire selected row
+combination.
+Ref: `Handouts/Ch2.1 Basic Queries` (DISTINCT applies to whole row).
+Grade: 0/1
+
+15. [SA] Explain FOREIGN KEY and referential integrity.
+Foreign key is a key that is used to establish relationships between tables and referential integrity means
+the relationships between tables are preserved regardless of what updates or changes are made to the tables
+Feedback: Correct. Nice explanation. You can tighten it by adding that FK values must
+match a parent PK/UNIQUE value (or be allowed NULL).
+Grade: 1/1
+
+16. [FIB] A foreign key usually references a parent table’s primary key.
+Feedback: Correct.
+Grade: 1/1
+
+17. [MC] In PostgreSQL, which is case-insensitive?
+A) LIKE
+B) ILIKE
+C) IN
+D) BETWEEN
+
+B)
+Feedback: Correct. ILIKE is case-insensitive in PostgreSQL.
+Grade: 1/1
+
+18. [TF] Strings in SQL comparisons should use single quotes.
+True
+Feedback: Correct.
+Grade: 1/1
+
+19. [SA] Why can SELECT * be risky in production queries?
+Because it can take up a lot of space in memory 
+Feedback: Partially correct. Also mention: it can fetch unnecessary columns, hurt
+performance/network usage, and column order/schema changes can break assumptions.
+Ref: `Handouts/Ch2.1 Basic Queries` (SELECT * caveats).
+Grade: 0.5/1
+
+20. [FIB] To remove duplicate result rows, use DISTINCT.
+Feedback: Correct.
+Grade: 1/1
+
+21. [MC] Which clause caps number of rows returned?
+A) OFFSET
+B) LIMIT
+C) WHERE
+D) ON
+
+B)
+Feedback: Correct. LIMIT caps the number of rows returned.
+Grade: 1/1
+
+22. [TF] COUNT(column) includes NULL rows in that column.
+
+False
+Feedback: Correct. COUNT(column) ignores NULLs in that column.
+Grade: 1/1
+
+23. [SA] Explain COUNT(*) vs COUNT(column).
+the one with * returns number of rows including null values while  column doesn't include null values for that column
+Feedback: Correct. Nice explanation.
+Grade: 1/1
+
+24. [FIB] To skip rows in PostgreSQL result sets, use OFFSET.
+Feedback: Correct.
+Grade: 1/1
+
+25. [MC] Which is the fixed-length character type?
+A) text
+B) varchar(n)
+C) char(n)
+D) numeric
+
+B)
+Feedback: Incorrect. Correct answer is C) char(n). char(n) is fixed-length; varchar(n)
+is variable-length.
+Ref: `Handouts/Ch2.2 Data Types` (char vs varchar definitions).
+Grade: 0/1
+
+26. [TF] char(n) stores only entered characters and never pads spaces.
+False
+Feedback: Correct. char(n) does pad with spaces.
+Grade: 1/1
+
+27. [SA] Compare char(n), varchar(n), and text briefly.
+char(n) pads spaces maintains n characters if the number of characters are less than n  by padding spaces
+whereas varchar(n) doesn't do that. Not sure about text though
+Feedback: Partially correct. Add: text is variable-length and effectively unlimited in
+PostgreSQL.
+Ref: `Handouts/Ch2.2 Data Types` (text type slide).
+Grade: 0.5/1
+
+28. [FIB] In PostgreSQL, LIKE is case-sensitive, while ILIKE is case-insensitive.
+Feedback: Correct.
+Grade: 1/1
+
+29. [MC] Which aggregate returns the number of all rows?
+A) COUNT(column)
+B) COUNT(*)
+C) SUM(*)
+D) AVG(*)
+
+B)
+Feedback: Correct. COUNT(*) returns number of all rows.
+Grade: 1/1
+
+30. [TF] GROUP BY can only group one column.
+
+False 
+Feedback: Correct. GROUP BY can include multiple columns.
+Grade: 1/1
+
+31. [SA] When should you use GROUP BY?
+When you want to aggregate data by some unique column values 
+Feedback: Correct. Great concise definition.
+Grade: 1/1
+
+32. [FIB] Every selected column not inside an aggregate must appear in ORDER BY.
+Feedback: Incorrect. It should be GROUP BY, not ORDER BY.
+Ref: `Handouts/Ch4.1 Grouping` (GROUP BY rules).
+Grade: 0/1
+
+33. [MC] Which ON DELETE action removes child rows automatically?
+A) SET NULL
+B) NO ACTION
+C) CASCADE
+D) RESTRICT
+
+C)
+Feedback: Correct. ON DELETE CASCADE removes child rows automatically.
+Grade: 1/1
+
+34. [TF] UNIQUE and PRIMARY KEY behave exactly the same with NULL values.
+
+True
+Feedback: Incorrect. It should be False. PRIMARY KEY disallows NULL; UNIQUE can allow
+NULL.
+Ref: `Handouts/Ch3.2 Table Design` (UNIQUE vs PRIMARY KEY).
+Grade: 0/1
+
+35. [SA] Explain UNIQUE vs PRIMARY KEY.
+UNIQUE ensures that values in a column or group of columns are unique in each row and it allows for NULL
+PRIMARY KEY does the same except it doesn't allow for NULL by definition of a primary key
+Feedback: Correct and well explained.
+Grade: 1/1
+
+36. [FIB] A constraint that blocks NULL values is NOT NULL.
+Feedback: Correct.
+Grade: 1/1
+
+37. [MC] Which auto-increment style is SQL-standard and preferred in class?
+A) serial
+B) bigserial
+C) GENERATED ALWAYS AS IDENTITY
+D) UUID
+
+C)
+Feedback: Correct. GENERATED ALWAYS AS IDENTITY is the SQL-standard style emphasized in
+class.
+Grade: 1/1
+
+38. [TF] serial/bigserial are SQL standard and preferred for exam answers.
+False
+Feedback: Correct.
+Grade: 1/1
+
+39. [SA] Why was IDENTITY emphasized over serial/bigserial?
+It's the SQL standard
+Feedback: Correct. Short but accurate.
+Grade: 1/1
+
+40. [FIB] GENERATED ALWAYS AS IDENTITY is the emphasized syntax.
+Feedback: Correct.
+Grade: 1/1
+
+41. [MC] Which join returns all rows from both sides?
+A) INNER JOIN
+B) LEFT JOIN
+C) FULL OUTER JOIN
+D) CROSS JOIN
+
+FULL OUTER JOIN
+Feedback: Correct. FULL OUTER JOIN returns all rows from both sides, with NULLs for
+unmatched sides.
+Grade: 1/1
+
+42. [TF] CROSS JOIN creates a cartesian product.
+True
+Feedback: Correct.
+Grade: 1/1
+
+43. [SA] Describe all five ANSI join types in short form.
+INNER JOIN - only all rows between both tables that match the join condition
+LEFT JOIN - all left rows and only rows on the right that match the condition
+RIGHT JOIN - all right rows and only rows on the left that match the condition
+FULL JOIN - rows from both that match and those that don't match with those not matching the condition from 
+either direction replaced with null 
+CROSS JOIN - cartesian product of columns from both the left and right tables
+Feedback: Correct overall. Tiny wording fix: CROSS JOIN creates cartesian product of
+rows (not columns). Your core understanding is solid.
+Grade: 1/1
+
+44. [FIB] The join that returns every combination of rows is CROSS JOIN.
+Feedback: Correct.
+Grade: 1/1
+
+45. [MC] A self-join is:
+A) A join with no ON clause
+B) A table joined to itself
+C) A join of three tables
+D) A join using DISTINCT
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+46. [TF] Table aliases are especially useful in self-joins.
+True
+Feedback: Correct.
+Grade: 1/1
+
+47. [SA] Write the main idea of a self-join employee-manager query.
+table joined with itself on columns that have similar values
+Feedback: Partially correct. Better: join employees as worker and manager using
+worker.manager_id = manager.employee_id to map each employee to their manager.
+Ref: `Handouts/Ch3.2 Self-Joins` (employee-manager self-join).
+Grade: 0.5/1
+
+48. [FIB] In a self-join, worker.manager_id typically matches manager.employee_id.
+Feedback: Correct.
+Grade: 1/1
+
+49. [MC] Which statement about views is correct?
+A) A view stores copied table rows
+B) A view is a stored query (virtual table)
+C) A view cannot use JOIN
+D) A view must be updatable
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+50. [TF] Views can simplify repeated complex joins.
+True
+Feedback: Correct.
+Grade: 1/1
+
+51. [SA] Give two benefits of views.
+For security, To limit the exposure of tables to users
+Feedback: Partially correct. These two are closely related (both security/exposure). Add
+a second distinct benefit such as simplifying repeated complex joins or design
+abstraction.
+Ref: `Handouts/Ch12 Views` (view benefits).
+Grade: 0.5/1
+
+52. [FIB] A view stores query statement, not separate copied data rows.
+Feedback: Correct.
+Grade: 1/1
+
+53. [MC] Which often makes a view non-updatable?
+A) Simple one-table select
+B) DISTINCT/GROUP BY/aggregates
+C) Direct base columns
+D) One-to-one mapping
+
+D)
+Feedback: Incorrect. Correct answer is B) DISTINCT/GROUP BY/aggregates (and similar
+constructs) often make views non-updatable.
+Ref: `Handouts/Ch12 Views` (updatable view restrictions).
+Grade: 0/1
+
+54. [TF] A view with GROUP BY is typically non-updatable.
+
+True
+Feedback: Correct.
+Grade: 1/1
+
+55. [SA] What makes a view updatable in general?
+if there is a one to one mapping between the rows in the view table and the rows in the underlying table
+Feedback: Correct. Nice concise answer.
+Grade: 1/1
+
+56. [FIB] Updatable views usually require a one-to-one row mapping to base table rows.
+Feedback: Correct.
+Grade: 1/1
+
+57. [MC] Which best defines ACID?
+A) Access, Consistency, Identity, Durability
+B) Atomicity, Consistency, Isolation, Durability
+C) Atomicity, Concurrency, Integrity, Durability
+D) Accuracy, Consistency, Isolation, Data
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+58. [TF] Isolation helps concurrent transactions avoid interfering with each other.
+True
+Feedback: Correct.
+Grade: 1/1
+
+59. [SA] Why is ACID important in systems like banking?
+It helps secure vital information such as preventing unwanted loss 
+Feedback: Partially correct. Also include: ACID keeps transactions reliable, prevents
+partial updates/corruption, and preserves consistency during concurrent operations.
+Ref: `Handouts/Week01 Databases ` and `test prep/Cheatsheet` (ACID section).
+Grade: 0.5/1
+
+60. [FIB] ACID’s D stands for Durability.
+Feedback: Correct.
+Grade: 1/1
+
+61. [MC] Which operator matches names starting with Sam (case-sensitive)?
+A) ILIKE 'Sam%'
+B) LIKE 'Sam%'
+C) = 'Sam%'
+D) IN ('Sam%')
+
+A)
+Feedback: Incorrect. Correct answer is B) LIKE 'Sam%'. LIKE is case-sensitive in
+PostgreSQL.
+Ref: `Handouts/Ch2.1 Basic Queries` (LIKE vs ILIKE).
+Grade: 0/1
+
+
+62. [TF] The wildcard % matches zero or more characters.
+
+True
+Feedback: Correct.
+Grade: 1/1
+
+63. [SA] Explain BETWEEN and IN with one example each.
+BETWEEN is for elements in a certain range and IN is for presence of a value in a certain set or list
+Feedback: Correct conceptually. For full-credit style, include examples, e.g. salary
+BETWEEN 30000 AND 50000 and last_name IN ('Bush','Roush').
+Grade: 0.5/1
+
+64. [FIB] The wildcard for exactly one character is ..
+Feedback: Incorrect. The wildcard is underscore: _.
+Ref: `Handouts/Ch2.1 Basic Queries` (wildcards % and _).
+Grade: 0/1
+
+65. [MC] Which is a CHECK constraint example?
+A) CHECK (salary >= 0)
+B) CHECK salary text
+C) CHECK = salary
+D) CHECK salary NULL
+
+A)
+Feedback: Correct.
+Grade: 1/1
+
+66. [TF] CHECK constraints enforce Boolean rules on inserted/updated data.
+True
+Feedback: Correct.
+Grade: 1/1
+
+67. [SA] Give one useful CHECK constraint for a users table.
+CHECK (salary <=500000)
+Feedback: Correct. Good example of a valid business rule.
+Grade: 1/1
+
+68. [FIB] A CHECK constraint must evaluate to true for allowed rows.
+Feedback: Correct.
+Grade: 1/1
+
+69. [MC] In ER modeling, an entity generally maps to:
+A) Trigger
+B) Table
+C) Procedure
+D) Index
+
+D)
+Feedback: Incorrect. Correct answer is B) Table.
+Ref: `Handouts/Week03-2 Conceptual Design ` (entity maps to table).
+Grade: 0/1
+
+70. [TF] One-to-many, one-to-one, and many-to-many are cardinalities.
+False
+Feedback: Incorrect. It should be True.
+Ref: `Handouts/Week03-2 Conceptual Design ` (cardinality types).
+Grade: 0/1
+
+71. [SA] What is a weak entity?
+A weak entity is a way of establishing heirarchies and only makes sense when some other related entity exists
+Feedback: Correct overall. Nice core idea: it depends on another entity to exist.
+Grade: 1/1
+
+72. [FIB] A weak entity often depends on a related entity for existence.
+Feedback: Correct.
+Grade: 1/1
+
+73. [MC] Which statement about DML is true in this class?
+A) SELECT is excluded from DML
+B) SELECT is treated as DML
+C) DML only includes INSERT and UPDATE
+D) DML includes CREATE TABLE
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+74. [TF] DDL is used to create or remove database objects.
+True
+Feedback: Correct.
+Grade: 1/1
+
+75. [SA] List DML vs DDL statements.
+DML: SELECT, INSERT, UPDATE, DELETE
+DDL: CREATE DATABASE TABLE INDEX, ALTER TABLE INDEX, DROP DATABASE TABLE INDEX
+Feedback: Correct. Good exam-ready list.
+Grade: 1/1
+
+
+
+76. [FIB] CREATE, ALTER, DROP belong to DDL.
+Feedback: Correct.
+Grade: 1/1
+
+77. [MC] Which query skeleton is correct?
+A) SELECT ... WHERE ... FROM ...
+B) FROM ... SELECT ... ORDER BY ...
+C) SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT ... OFFSET ...
+D) SELECT ... LIMIT ... FROM ... WHERE ...
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+78. [TF] LIMIT and OFFSET are noted as non-ANSI in the course slides.
+True
+Feedback: Correct.
+Grade: 1/1
+
+79. [SA] Give one realistic query that uses WHERE + ORDER BY + LIMIT.
+select first_name, last_name, salary 
+from employees
+where salary > 10000
+order by first_name;
+Feedback: Partially correct. Good WHERE + ORDER BY, but missing LIMIT and salary literal
+should not use comma (use 10000). Example: ... WHERE salary > 10000 ORDER BY first_name
+LIMIT 10;.
+Ref: `Handouts/Ch2.1 Basic Queries` (WHERE/ORDER BY/LIMIT examples).
+Grade: 0.5/1
+
+80. [FIB] In this class, SELECT is considered part of DML.
+Feedback: Correct.
+Grade: 1/1
+Pre-Exam: All Handouts Coverage
+Course: CS486/586 Intro DBMS
+Format:
+Multiple choice
+True/False
+Short answer
+Fill in the blanks
+
+==================================================
+MIXED PRE-EXAM (INTERLEAVED TYPES)
+==================================================
+
+81. [MC] Which statement is considered DDL?
+A) SELECT
+B) INSERT
+C) CREATE TABLE
+D) UPDATE
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+82. [TF] SQL keywords are generally case-sensitive in common DBMSs.
+False
+Feedback: Correct.
+Grade: 1/1
+83. [SA] Explain the difference between data and information.
+Data is a representation of some real world entity and information is the organized collection of data
+Feedback: Partially correct. Data = raw facts; information = processed/organized data
+with meaning for decisions.
+Ref: `Handouts/Week01 Databases ` and `Handouts/Ch1.2 Data Basics`.
+Grade: 0.5/1
+
+84. [FIB] The six SELECT clauses in class order are: SELECT, FROM, WHERE, ORDER BY , LIMIT, OFFSET.
+Feedback: Correct.
+Grade: 1/1
+
+85. [MC] Which statement is considered DML in this course?
+A) ALTER TABLE
+B) DROP INDEX
+C) SELECT
+D) CREATE DATABASE
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+86. [TF] JOIN without a qualifier defaults to INNER JOIN.
+True
+Feedback: Correct.
+Grade: 1/1
+
+87. [SA] Define database and DBMS in one or two sentences each.
+database is a place that stores data in an organized manner and also securely and DBMS manages databases
+Feedback: Correct. Nice concise distinction.
+Grade: 1/1
+
+88. [FIB] A primary key uniquely identifies a row in a table.
+Feedback: Correct.
+Grade: 1/1
+
+89. [MC] What best defines a primary key?
+A) A column used for sorting
+B) A column that can be duplicated
+C) A value that uniquely identifies each row
+D) A nullable reference column
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+90. [TF] ORDER BY is optional, but output order is guaranteed if omitted.
+False 
+Feedback: Correct.
+Grade: 1/1
+
+91. [SA] Why do organizations prefer databases over flat file systems?
+Better security, no inconsistencies, easier backups, 
+Feedback: Mostly correct. Good core points; add multi-user concurrency and efficient
+querying/access for a complete exam answer.
+Ref: `Handouts/Week01 Databases ` (database advantages).
+Grade: 0.5/1
+
+92. [FIB] A foreign key usually references a parent table’s primary key.
+Feedback: Correct.
+Grade: 1/1
+
+93. [MC] What is the main purpose of a foreign key?
+A) Encrypt data
+B) Enforce referential integrity across tables
+C) Improve font rendering
+D) Replace indexes
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+94. [TF] SELECT * guarantees stable column order by SQL standard.
+False
+Feedback: Correct.
+Grade: 1/1
+
+95. [SA] Give one example of inconsistency in a file-based system.
+a change in one file not reflecting appropriately in another file
+Feedback: Correct. Clear example.
+Grade: 1/1
+
+96. [FIB] To check for missing values, use IS NULL.
+Feedback: Correct.
+Grade: 1/1
+
+
+97. [MC] Which join returns only matching rows from both tables?
+A) LEFT JOIN
+B) RIGHT JOIN
+C) FULL JOIN
+D) INNER JOIN
+
+D)
+Feedback: Correct.
+Grade: 1/1
+
+98. [TF] DISTINCT applies to the full selected row.
+True
+Feedback: Correct.
+Grade: 1/1
+
+99. [SA] Define primary key and foreign key.
+Primary key uniquely identifies a non-null row and a foreign key establishes a relationship between a table 
+and another table 
+Feedback: Correct.
+Grade: 1/1
+
+100. [FIB] In PostgreSQL, LIKE is case-sensitive and ILIKE is case-insensitive.
+Feedback: Correct.
+Grade: 1/1
+
+101. [MC] In a LEFT JOIN, unmatched rows from the right side appear as:
+A) empty strings
+B) zeros
+C) NULL values
+D) they are removed
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+102. [TF] `ORDER BY` can sort by multiple columns with different directions.
+True
+Feedback: Correct.
+Grade: 1/1
+
+103. [SA] Explain ad hoc relationship in joins.
+ Ad hoc relationship is a relationship used in the query that hasn't been specified by the database
+Feedback: Correct. Good definition.
+Grade: 1/1
+104. [FIB] In `LIKE`, `%` matches zero or more characters.
+Feedback: Correct.
+Grade: 1/1
+
+105. [MC] Which is the best reason to use table aliases in joins?
+A) Required by SQL standard
+B) Makes ambiguous columns clear and queries easier to read
+C) Improves database storage
+D) Replaces indexes
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+106. [TF] `COUNT(DISTINCT col)` counts unique non-NULL values.
+True
+Feedback: Correct.
+Grade: 1/1
+107. [SA] Explain why `COUNT(*)` and `COUNT(col)` can return different values.
+because * includes NULLs and col doesn't 
+Feedback: Correct and concise.
+Grade: 1/1
+108. [FIB] The operator for string concatenation used in the slides is || .
+Feedback: Correct.
+Grade: 1/1
+
+109. [MC] Which join is best to list all teams whether or not they have missions?
+A) INNER JOIN
+B) LEFT JOIN
+C) CROSS JOIN
+D) SELF JOIN
+
+C)
+Feedback: Incorrect. Correct answer is B) LEFT JOIN, because you want all teams whether
+or not there is a matching mission.
+Ref: `Handouts/Ch3.1 Joins`.
+Grade: 0/1
+
+110. [TF] `WHERE` filters rows before `ORDER BY` is applied.
+True 
+Feedback: Correct.
+Grade: 1/1
+
+111. [SA] Explain what referential integrity prevents.
+Referential integrity preserves relationships between tables
+Feedback: Correct. More explicitly: it prevents invalid references/orphan rows in child
+tables.
+Grade: 1/1
+
+112. [FIB] To rename a result column, use keyword AS.
+Feedback: Correct.
+Grade: 1/1
+
+113. [MC] Which statement is true about `SELECT *`?
+A) Always recommended in production
+B) Column order and schema stability are guaranteed
+C) It may return unnecessary columns and increase risk when schemas change
+D) It cannot be used with WHERE 
+
+C)
+Feedback: Correct.
+Grade: 1/1
+
+114. [TF] PostgreSQL `ILIKE` is a non-ANSI extension.
+True
+Feedback: Correct.
+Grade: 1/1
+115. [SA] Why is using single quotes for string literals important?
+Not sure
+Feedback: Incorrect. Single quotes mark string literals; using double quotes can be
+treated as identifier quoting in PostgreSQL and cause errors/incorrect parsing.
+Ref: `Handouts/Ch2.1 Basic Queries`.
+Grade: 0/1
+116. [FIB] To test if value is missing, use `IS NULL`.
+Feedback: Correct.
+Grade: 1/1
+
+117. [MC] Which query intent requires `HAVING`?
+A) Filter individual rows before grouping
+B) Filter grouped results based on aggregate output
+C) Sort results
+D) Skip rows
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+118. [TF] `HAVING` can be used without `GROUP BY` in some SQL dialects.
+False
+Feedback: Incorrect. It should be True in many systems because HAVING can apply to the
+implicit single group (especially with aggregates).
+Ref: `Handouts/Ch4.1 Grouping`.
+Grade: 0/1
+119. [SA] Give one example where table-level constraint is required instead of column-level.
+Not sure 
+Feedback: Incorrect. Example: composite primary key like `PRIMARY KEY (student_id,
+school_day)` must be table-level.
+Ref: `Handouts/Ch3.2 Table Design`.
+Grade: 0/1
+120. [FIB] `GROUP BY` commonly appears with aggregate functions.
+Feedback: Correct.
+Grade: 1/1
+
+121. [MC] Which is TRUE about UNIQUE vs PRIMARY KEY?
+A) Both allow multiple NULLs in all DBMS equally
+B) PRIMARY KEY disallows NULL; UNIQUE is for non-duplicate values
+C) UNIQUE is only for numeric columns
+D) PRIMARY KEY is optional metadata only
+
+B)
+Feedback: Correct.
+Grade: 1/1
+
+122. [TF] A composite primary key can contain more than one column.
+True
+Feedback: Correct.
+Grade: 1/1
+123. [SA] Explain why surrogate keys can be useful even when a natural key exists.
+So that there is a more structured and memory preserving way of identify unique rows
+Feedback: Partially correct. Better: surrogate keys are stable, simple, and decoupled from
+changing business data; they can also simplify joins/indexes.
+Ref: Handouts/Ch1.2 Data Basics and Handouts/Ch3.2 Table Design.
+Grade: 0.5/1
+
+124. [FIB] SQL-standard identity syntax uses `GENERATED ALWAYS AS IDENTITY`.
+Feedback: Correct.
+Grade: 1/1
+
+
+125. [MC] Which `ON DELETE` action automatically deletes matching child rows?
+A) RESTRICT
+B) NO ACTION
+C) CASCADE
+D) SET DEFAULT
+ 
+ C)
+Feedback: Correct.
+Grade: 1/1
+
+126. [TF] `SET NULL` on delete requires FK column to allow NULL.
+True
+Feedback: Correct.
+Grade: 1/1
+127. [SA] Explain the practical difference between NO ACTION and RESTRICT at a high level.
+No action issues constraint violation when deleting rows from a table and same for restrict except for defining 
+foreign keys as deferrable 
+Feedback: Correct. Good high-level distinction.
+Grade: 1/1
+
+128. [FIB] Constraint that forbids NULLs is `NOT NULL`.
+Feedback: Correct.
+Grade: 1/1
+
+129. [MC] Which type is fixed-length in PostgreSQL?
+A) text
+B) varchar(n)
+C) char(n)
+D) json
+
+B
+Feedback: Incorrect. Correct answer is C) char(n), the fixed-length character type.
+Ref: Handouts/Ch2.2 Data Types.
+Grade: 0/1
+130. [TF] In PostgreSQL, `char(n)` may add trailing spaces.
+True 
+Feedback: Correct.
+Grade: 1/1
+
+131. [SA] Why do slides recommend `text`/`varchar` over `char(n)` in many cases?
+     because char(n) might compromise performance in many cases than text/varchar
+Feedback: Correct. Main idea is right: char(n) padding can add overhead and less flexibility.
+Grade: 1/1
+
+132. [FIB] Variable-length with max size n: `varchar (n)`.
+Feedback: Correct.
+Grade: 1/1
+
+133. [MC] Which query finds unique pairs?
+A) `SELECT DISTINCT school FROM ...`
+B) `SELECT DISTINCT school, salary FROM ...`
+C) Both A and B
+D) Neither
+
+B)
+Feedback: Incorrect. Correct answer is C) Both. A returns unique schools; B returns unique
+school-salary pairs.
+Ref: Handouts/Ch2.1 Basic Queries.
+Grade: 0/1
+
+
+134. [TF] `DISTINCT school, salary` can still repeat school values.
+True
+Feedback: Correct.
+Grade: 1/1
+135. [SA] Explain why that repetition is possible in one sentence.
+because they are combinations and one value can pair with multiple values to form unique combinations
+Feedback: Correct. Nice concise explanation.
+Grade: 1/1
+136. [FIB] Clause order snippet: `SELECT ... FROM ... WHERE ... ORDER BY ...`.
+Feedback: Correct.
+Grade: 1/1
+
+137. [MC] Which aggregate ignores NULL values by definition?
+A) COUNT(col)
+B) COUNT(*)
+C) Both
+D) Neither
+
+A)
+Feedback: Correct.
+Grade: 1/1
+
+138. [TF] `AVG()` ignores NULLs in aggregated column values.
+True 
+Feedback: Correct.
+Grade: 1/1
+
+139. [SA] Why might negative sentinel values be filtered before aggregates?
+Don't know
+Feedback: Incorrect. Sentinel negatives often mean missing/not-applicable, so including them
+would distort averages/sums/min and mislead analysis.
+Ref: Handouts/Ch4.1 Grouping.
+Grade: 0/1
+140. [FIB] Function returning the maximum value is `MAX()`.
+Feedback: Correct.
+Grade: 1/1
+
+141. [MC] A view is best described as:
+A) physical copy of source rows
+B) stored query definition returning virtual table
+C) indexing strategy
+D) transaction log
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+142. [TF] A view containing GROUP BY is typically not updatable.
+True
+Feedback: Correct.
+Grade: 1/1
+143. [SA] Give two practical benefits of views from course slides.
+for security reasons, to restrict access
+Feedback: Partially correct. You gave one theme twice (security/restriction).
+Feedback: Add a second distinct benefit like simplified queries or design independence.
+Ref: Handouts/Ch12 Views.
+Grade: 0.5/1
+144. [FIB] A view stores query statements, not copied table data.
+Feedback: Correct.
+Grade: 1/1
+
+
+145. [MC] Which usually makes views non-updatable?
+A) one-table simple projection
+B) DISTINCT / GROUP BY / aggregate expressions
+C) selecting base table columns
+D) using WHERE
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+146. [TF] Calculated columns in views are generally directly updatable.
+True
+Feedback: Incorrect. It should be False. Calculated columns are typically not directly
+updatable.
+Ref: Handouts/Ch12 Views.
+Grade: 0/1
+
+147. [SA] Explain one-to-one row mapping requirement for updatable views.
+there should be a one-to-one mapping from the rows in view table to the rows underlying table 
+Feedback: Correct.
+Grade: 1/1
+148. [FIB] To remove a view: `DROP VIEW view_name;`
+Feedback: Correct.
+Grade: 1/1
+
+149. [MC] In ER modeling, cardinality answers:
+A) how many entities can participate in a relationship
+B) physical disk size
+C) table sort order
+D) SQL keyword case
+A)
+Feedback: Correct.
+Grade: 1/1
+
+150. [TF] Many-to-many, one-to-many, one-to-one are cardinality types.
+True
+Feedback: Correct.
+Grade: 1/1
+151. [SA] Define weak entity in plain language.
+Weak entity is an entity that makes sense only if there is another entity it relates to
+Feedback: Correct.
+Grade: 1/1
+152. [FIB] Entity in ER model commonly maps to relational integrity.
+Feedback: Incorrect. It should be `table`.
+Ref: Handouts/Week03-2 Conceptual Design.
+Grade: 0/1
+
+153. [MC] DBMS concurrency control mainly helps with:
+A) fonts and rendering
+B) multi-user conflict handling and isolation
+C) converting SQL to Python
+D) adding emojis
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+154. [TF] Isolation in ACID helps prevent concurrent transactions interfering.
+True
+Feedback: Correct.
+Grade: 1/1
+155. [SA] Explain Atomicity with a bank transfer example.
+Feedback: No answer provided.
+Feedback: Atomicity means all steps succeed or all are rolled back.
+Feedback: Example: debit and credit both happen, or neither happens.
+Grade: 0/1
+
+156. [FIB] ACID’s D stands for Durability.
+Feedback: Correct.
+Grade: 1/1
+
+157. [MC] Which statement about inconsistency is most accurate?
+A) it means all files agree
+B) same fact differs across files/tables
+C) it is only about query speed
+D) it is same as indexing
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+158. [TF] File-based duplication increases risk of inconsistent updates.
+True
+Feedback: Correct.
+Grade: 1/1
+159. [SA] Give one short real-world inconsistency example.
+One file has a record in it changed but the other files having a similar record stays the samee 
+Feedback: Correct example.
+Grade: 1/1
+160. [FIB] In class, SELECT is treated as part of DML.
+Feedback: Correct.
+Grade: 1/1
+
+161. [MC] Correct literal comparison:
+A) `school = "Myers Middle School"`
+B) `school = 'Myers Middle School'`
+C) `school == 'Myers Middle School'`
+D) `school = Myers Middle School`
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+162. [TF] SQL keywords are generally case-insensitive in common DBMSs.
+True
+Feedback: Correct.
+Grade: 1/1
+163. [SA] Explain why SQL keyword case usually does not change query meaning.
+because there is some kind of parser
+Feedback: Partially correct. Better: SQL keywords are generally case-insensitive by design
+in common DBMSs, so parser treats SELECT/select similarly.
+Ref: Handouts/Ch1.2 Data Basics.
+Grade: 0.5/1
+
+164. [FIB] Case-insensitive pattern operator in PostgreSQL: ILIKE.
+Feedback: Correct.
+Grade: 1/1
+
+165. [MC] Which clause limits result size?
+A) LIMIT
+B) OFFSET
+C) GROUP BY
+D) ON
+
+A
+Feedback: Correct.
+Grade: 1/1
+
+166. [TF] OFFSET skips rows before returning remaining rows.
+True
+Feedback: Correct.
+Grade: 1/1
+167. [SA] Give one practical use case combining LIMIT + OFFSET.
+select first, last, salary
+from employees
+order by salary desc;
+limit 5
+offset 2;
+Feedback: Partially correct. Idea is right, but syntax should be one statement with LIMIT and
+OFFSET before final semicolon.
+Feedback: Example: `... ORDER BY salary DESC LIMIT 5 OFFSET 2;`
+Ref: Handouts/Ch2.1 Basic Queries.
+Grade: 0.5/1
+
+168. [FIB] To skip rows, use clause OFFSET.
+Feedback: Correct.
+Grade: 1/1
+
+169. [MC] Which query style is explicit join syntax?
+A) `FROM a, b WHERE ...`
+B) `FROM a JOIN b ON ...`
+C) both
+D) none
+
+C)
+Feedback: Incorrect. Correct answer is B) `FROM a JOIN b ON ...` is explicit join syntax.
+Ref: Handouts/Ch3.1 Joins.
+Grade: 0/1
+
+170. [TF] A query can use implicit syntax and still behave as an inner join.
+True
+Feedback: Correct.
+Grade: 1/1
+
+171. [SA] Why is explicit join syntax preferred in modern SQL?
+ because it simplifies the queries 
+Feedback: Partially correct.
+Feedback: Also mention clarity and reduced mistakes vs implicit join style.
+Ref: Handouts/Ch3.1 Joins.
+Grade: 0.5/1
+172. [FIB] Join condition keyword is `JOIN`.
+Feedback: Incorrect.
+Feedback: Correct keyword is `ON` (used to define join condition).
+Ref: Handouts/Ch3.1 Joins.
+Grade: 0/1
+
+173. [MC] Best reason to avoid `= NULL`:
+A) slower only
+B) invalid logic for SQL NULL semantics
+C) works same as IS NULL
+D) only old databases reject it
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+174. [TF] Correct NULL checks are `IS NULL` and `IS NOT NULL`.
+True
+Feedback: Correct.
+Grade: 1/1
+175. [SA] Explain SQL NULL as marker vs normal value.
+         don't know
+Feedback: Incorrect.
+Feedback: NULL is a marker for missing/inapplicable data, not a regular value.
+Feedback: So comparisons use IS NULL/IS NOT NULL, not = NULL.
+Ref: Handouts/Ch2.1 Basic Queries.
+Grade: 0/1
+176. [FIB] `COUNT(column)` ignores NULL values.
+Feedback: Correct.
+Grade: 1/1
+
+177. [MC] In table design, CHECK enforces:
+A) join order
+B) boolean condition on row values
+C) index type
+D) transaction rollback
+
+B
+Feedback: Correct.
+Grade: 1/1
+
+178. [TF] CHECK constraints are usually better than ad hoc cleanup after bad inserts.
+True
+Feedback: Correct.
+Grade: 1/1
+179. [SA] Give one CHECK constraint example for role validation.
+ CHECK (role in ('manager',...))
+Feedback: Partially correct.
+Feedback: Complete example: CHECK (role IN ('manager','staff','admin')).
+Ref: Handouts/Ch3.2 Table Design.
+Grade: 0.5/1
+180. [FIB] Salary non-negative rule often written as `CHECK (salary > 0)`.
+Feedback: Incorrect.
+Feedback: Non-negative should include zero: CHECK (salary >= 0).
+Ref: Handouts/Ch3.2 Table Design.
+Grade: 0/1
+
+181. [MC] For generated numeric ids in this course, preferred syntax:
+A) serial
+B) bigserial
+C) GENERATED ALWAYS AS IDENTITY
+D) uuid_generate_v4 only
+
+182. [TF] Slides note serial/bigserial are PostgreSQL-specific.
+183. [SA] Explain why course expects IDENTITY in exam answers.
+184. [FIB] Identity keyword pair: `GENERATED ALWAYS AS _____`.
+
+185. [MC] Which query returns every row-pair combination?
+A) INNER JOIN
+B) LEFT JOIN
+C) CROSS JOIN
+D) FULL JOIN
+
+186. [TF] CROSS JOIN does not require ON condition.
+187. [SA] Give one scenario where CROSS JOIN is useful.
+188. [FIB] Join returning all rows from both sides: `_____ OUTER JOIN`.
+
+189. [MC] If row order matters, what must query include?
+A) DISTINCT
+B) ORDER BY
+C) GROUP BY
+D) LIMIT
+
+190. [TF] Without ORDER BY, returned row order is not guaranteed.
+191. [SA] Explain why relying on default order can cause unstable results.
+192. [FIB] Clause to control order is `_____ BY`.
+
+193. [MC] Which best explains why databases are preferred over flat files?
+A) only prettier UI
+B) integrity, security, concurrency, recovery, efficient querying
+C) smaller keyboard use
+D) no schema needed ever
+
+194. [TF] Backup/recovery support is a core DBMS advantage.
+195. [SA] Name three DBMS advantages in one sentence.
+196. [FIB] Conflicting copies of same fact indicate data _____.
+
+197. [MC] A self-join is:
+A) joining two different unrelated tables
+B) joining table to itself with aliases
+C) a special index
+D) a cross join only
+
+198. [TF] Self-joins commonly need aliases to distinguish roles.
+199. [SA] Explain employee-manager self-join match condition.
+200. [FIB] In employee-manager self-join, `worker.manager_id` matches `manager._____`.
+

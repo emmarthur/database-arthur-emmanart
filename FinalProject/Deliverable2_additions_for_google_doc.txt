@@ -1,0 +1,158 @@
+2.1 Conceptual ER Diagram and Relational Schema Translation
+
+I designed my project in the `soccer_proj` schema with 7 relational tables and 1 view:
+1) Country
+2) League
+3) Team
+4) Player
+5) Team_Attributes
+6) Player_Attributes
+7) Match_tbl
+View: league_match_summary_view
+
+Relational schema (PK, UNIQUE, FK):
+
+Country(
+  id PK,
+  name
+)
+
+League(
+  id PK,
+  country_id FK -> Country(id),
+  name
+)
+
+Team(
+  id PK,
+  team_api_id UNIQUE,
+  team_fifa_api_id UNIQUE,
+  team_long_name,
+  team_short_name
+)
+
+Player(
+  id PK,
+  player_api_id UNIQUE,
+  player_fifa_api_id UNIQUE,
+  player_name,
+  birthday,
+  height,
+  weight
+)
+
+Team_Attributes(
+  id PK,
+  team_api_id FK -> Team(team_api_id),
+  team_fifa_api_id FK -> Team(team_fifa_api_id),
+  date,
+  buildUpPlaySpeed,
+  buildUpPlayPassing,
+  chanceCreationPassing,
+  defencePressure
+  -- plus additional team attribute columns
+)
+
+Player_Attributes(
+  id PK,
+  player_api_id FK -> Player(player_api_id),
+  player_fifa_api_id FK -> Player(player_fifa_api_id),
+  date,
+  overall_rating,
+  potential
+  -- plus additional player attribute columns
+)
+
+Match_tbl(
+  id PK,
+  country_id FK -> Country(id),
+  league_id FK -> League(id),
+  home_team_api_id FK -> Team(team_api_id),
+  away_team_api_id FK -> Team(team_api_id),
+  home_player_1 ... home_player_11 FK -> Player(player_api_id),
+  away_player_1 ... away_player_11 FK -> Player(player_api_id),
+  match_api_id,
+  season,
+  stage,
+  date,
+  home_team_goal,
+  away_team_goal
+  -- plus betting/event columns
+)
+
+View created:
+
+create or replace view soccer_proj.league_match_summary_view as
+select
+  l.id as league_id,
+  l.name as league_name,
+  count(*) as total_matches,
+  avg(m.home_team_goal)::numeric(10,2) as avg_home_goals,
+  avg(m.away_team_goal)::numeric(10,2) as avg_away_goals,
+  avg((m.home_team_goal + m.away_team_goal)::numeric(10,2)) as avg_total_goals
+from soccer_proj."Match_tbl" m
+join soccer_proj."League" l
+  on l.id = m.league_id
+group by l.id, l.name;
+
+Evidence that at least one table was created and populated (include screenshot of output):
+
+create schema if not exists soccer_proj;
+
+create table if not exists soccer_proj.deliverable2_table_proof (
+  proof_id int primary key,
+  proof_note text not null
+);
+
+insert into soccer_proj.deliverable2_table_proof (proof_id, proof_note)
+values (1, 'Table created and one row inserted for Deliverable 2 evidence');
+
+select * from soccer_proj.deliverable2_table_proof;
+
+
+2.2 Real Data Loading, 1 Row Per Table/View, and Row Counts
+
+I loaded real soccer data (not mocked) from the European Soccer dataset into my PostgreSQL schema (`soccer_proj`) using CSV files generated from the source SQLite database.
+
+Show 1 row from each table:
+
+select * from soccer_proj."Country" limit 1;
+select * from soccer_proj."League" limit 1;
+select * from soccer_proj."Team" limit 1;
+select * from soccer_proj."Player" limit 1;
+select * from soccer_proj."Team_Attributes" limit 1;
+select * from soccer_proj."Player_Attributes" limit 1;
+select * from soccer_proj."Match_tbl" limit 1;
+
+Show 1 row from the view:
+
+select * from soccer_proj.league_match_summary_view limit 1;
+
+Row counts for each table and view:
+
+select 'Country' as object_name, count(*) as row_count from soccer_proj."Country"
+union all
+select 'League', count(*) from soccer_proj."League"
+union all
+select 'Team', count(*) from soccer_proj."Team"
+union all
+select 'Player', count(*) from soccer_proj."Player"
+union all
+select 'Team_Attributes', count(*) from soccer_proj."Team_Attributes"
+union all
+select 'Player_Attributes', count(*) from soccer_proj."Player_Attributes"
+union all
+select 'Match_tbl', count(*) from soccer_proj."Match_tbl"
+union all
+select 'league_match_summary_view', count(*) from soccer_proj.league_match_summary_view;
+
+Current loaded table row counts (real data):
+- Country: 11
+- League: 11
+- Team: 299
+- Player: 11,060
+- Team_Attributes: 1,458
+- Player_Attributes: 183,978
+- Match_tbl: 25,979
+
+Total rows across tables = 222,796, which exceeds the undergrad minimum (1,000) and grad minimum (10,000).

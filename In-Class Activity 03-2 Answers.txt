@@ -1,0 +1,200 @@
+In-Class Activity 03-2 Answers
+
+1) Write down the names of the 5 ANSI joins and what each does.
+- INNER JOIN: only keeps rows where both tables match.
+- LEFT (OUTER) JOIN: keeps all rows from the left table + matching rows from the right table (no match = NULL on the right).
+- RIGHT (OUTER) JOIN: keeps all rows from the right table + matching rows from the left table (no match = NULL on the left).
+- FULL (OUTER) JOIN: keeps all rows from both tables; matches where possible, NULLs where there is no match.
+- CROSS JOIN: every row in table A paired with every row in table B (cartesian product).
+
+2) What are the rules for using UNION, INTERSECT, and EXCEPT?
+- Same number of columns in each SELECT result set.
+- Corresponding columns must have compatible data types.
+- Final output column names come from the first SELECT.
+- UNION removes duplicate rows; UNION ALL keeps duplicate rows.
+- UNION can have a performance hit vs UNION ALL because duplicate removal takes extra work.
+- INTERSECT returns only rows common to both result sets.
+- EXCEPT removes from the left result set any rows that also appear in the right result set.
+- ORDER BY goes at the end of the full set operation query.
+
+3) SQL scripts using students + club_members
+
+-- List names and clubs for students who are in a club.
+select s.name, c.club_name
+from students as s
+inner join club_members as c
+on s.student_id = c.student_id;
+
+-- List all students, whether or not they are in a club.
+select s.student_id, s.name, s.major, c.club_name
+from students as s
+left join club_members as c
+on s.student_id = c.student_id;
+
+-- List students who are not in any club.
+select s.student_id, s.name, s.major
+from students as s
+left join club_members as c
+on s.student_id = c.student_id
+where c.student_id is null;
+
+-- List all students and club members (even if not matched).
+select s.student_id as student_id
+, s.name
+, s.major
+, c.student_id as club_student_id
+, c.club_name
+from students as s
+full outer join club_members as c
+on s.student_id = c.student_id;
+
+-- Show every possible combination of students and clubs.
+select s.name, s.major, c.club_name
+from students as s
+cross join club_members as c;
+
+4) Imagine this dataset is part of a campus app. What other entities would you add?
+- entity 1: courses
+- entity 2: instructors
+
+What extra attributes would you add to those entities?
+- courses:
+  - course_id
+  - course_code
+  - course_title
+  - credit_hours
+  - department
+  - semester
+  - instructor_id
+- instructors:
+  - instructor_id
+  - first_name
+  - last_name
+  - email
+  - office_location
+  - department
+  - rank
+
+5) spy schema: English -> SQL (matches your column screenshots) + submission format
+What your instructor wants for EACH query below:
+- paste the SQL text
+- run it and write the number of rows returned
+- add a screen capture showing the first 5 rows returned
+
+Tip: use the “full query” for the row count. use the “first 5 rows” query for the screenshot
+(so you don’t accidentally change the real answer by only running a limited query).
+
+Tables/columns I’m using (from your screenshots):
+- team: team_id, name, meeting_frequency
+- teamrel: team_id, agent_id
+- agent: agent_id, first, middle, last, address, city, country, salary, clearance_id
+- language: lang_id, language
+- languagerel: lang_id, agent_id
+- mission: mission_id, name, access_id, team_id, mission_status
+- securityclearance: sc_id, sc_level, description
+
+5a) Find the team name for all teams with at least one agent who speaks Cherokee.
+-- full query (this is what the row count should match)
+select distinct t.name as team_name
+from team as t
+inner join teamrel as tr
+on t.team_id = tr.team_id
+inner join agent as a
+on tr.agent_id = a.agent_id
+inner join languagerel as lr
+on a.agent_id = lr.agent_id
+inner join language as lang
+on lr.lang_id = lang.lang_id
+where lower(lang.language) = 'cherokee';
+
+-- row count for the full query
+select count(*) as row_count
+from (
+select distinct t.name as team_name
+from team as t
+inner join teamrel as tr
+on t.team_id = tr.team_id
+inner join agent as a
+on tr.agent_id = a.agent_id
+inner join languagerel as lr
+on a.agent_id = lr.agent_id
+inner join language as lang
+on lr.lang_id = lang.lang_id
+where lower(lang.language) = 'cherokee'
+) as q;
+
+-- first 5 rows (for screenshot only)
+select distinct t.name as team_name
+from team as t
+inner join teamrel as tr
+on t.team_id = tr.team_id
+inner join agent as a
+on tr.agent_id = a.agent_id
+inner join languagerel as lr
+on a.agent_id = lr.agent_id
+inner join language as lang
+on lr.lang_id = lang.lang_id
+where lower(lang.language) = 'cherokee'
+limit 5;
+
+rows returned (fill in after you run the full query): ___
+screenshot file name (attach in your doc / upload): ___
+
+5b) List each mission along with its security clearance description.
+-- full query
+select m.name as mission_name
+, sc.description as security_clearance_description
+from mission as m
+inner join securityclearance as sc
+on m.access_id = sc.sc_id;
+
+-- row count for the full query
+select count(*) as row_count
+from (
+select m.name as mission_name
+, sc.description as security_clearance_description
+from mission as m
+inner join securityclearance as sc
+on m.access_id = sc.sc_id
+) as q;
+
+-- first 5 rows (for screenshot only)
+select m.name as mission_name
+, sc.description as security_clearance_description
+from mission as m
+inner join securityclearance as sc
+on m.access_id = sc.sc_id
+limit 5;
+
+rows returned: ___
+screenshot file name: ___
+
+5c) List the security clearance description for all missions, and include security clearances
+that are not assigned to any missions.
+-- full query
+select sc.description as security_clearance_description
+, m.name as mission_name
+from mission as m
+full outer join securityclearance as sc
+on m.access_id = sc.sc_id;
+
+-- row count for the full query
+select count(*) as row_count
+from (
+select sc.description as security_clearance_description
+, m.name as mission_name
+from mission as m
+full outer join securityclearance as sc
+on m.access_id = sc.sc_id
+) as q;
+
+-- first 5 rows (for screenshot only)
+select sc.description as security_clearance_description
+, m.name as mission_name
+from mission as m
+full outer join securityclearance as sc
+on m.access_id = sc.sc_id
+limit 5;
+
+rows returned: ___
+screenshot file name: ___

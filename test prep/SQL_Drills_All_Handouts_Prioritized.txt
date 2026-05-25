@@ -1,0 +1,315 @@
+SQL Drills: All Handouts (Prioritized)
+Goal: Master exam-critical SQL by writing queries against known schemas.
+Order: foundational first, advanced later.
+
+==================================================
+Schemas (use exactly these)
+==================================================
+
+1) teachers.teachers
+- id integer
+- first_name text
+- last_name text
+- school text
+- hire_date date
+- salary numeric
+
+2) chap_07_examples.departments
+- dept_id integer
+- dept text
+- city text
+
+3) chap_07_examples.employees
+- emp_id integer
+- first_name text
+- last_name text
+- salary numeric(10,2)
+- dept_id integer
+
+4) self_join.employees
+- employee_id integer
+- first_name text
+- last_name text
+- title text
+- department_id integer
+- manager_id integer
+
+5) chap_09_examples.pls_fy2018_libraries
+- stabr text
+- city text
+- libname text
+- visits integer
+- phone text
+
+==================================================
+A0) Imported Core Drills (From Pre-Exam, Moved Up)
+==================================================
+
+201. Write a query that returns `last_name`, `school`, and `hire_date` for teachers in `Myers Middle School` hired before `2010-01-01`.
+select last_name, school, hire_date 
+from teachers.teachers
+where school = 'Myers Middle School'
+    and hire_date < '2010-01-01';
+Feedback: Correct.
+
+202. Write a query that lists unique schools in alphabetical order.
+select distinct school
+from teachers.teachers
+order by school
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+203. Write a query that returns `first_name`, `last_name`, `salary` ordered by `salary DESC`, then `last_name ASC`.
+select first_name, last_name, salary
+from teachers.teachers
+order by salary desc, last_name asc
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+204. Write a query using `GROUP BY` to count rows by `stabr` from `chap_09_examples.pls_fy2018_libraries`.
+select stabr, count(stabr)
+from chap_09_examples.pls_fy2018_libraries
+group by stabr;
+Feedback: Correct.
+
+205. Write a query to find rows where `hire_date IS NULL`.
+select * 
+from teachers.teachers
+where hire_date is null;
+Feedback: Correct.
+
+206. Write an `INNER JOIN` between departments and employees on `dept_id`.
+select * 
+from chap_07_examples.departments as departments
+   join chap_07_examples.employees as employees
+   on departments.dept_id = employees.dept_id;
+Feedback: Correct.
+
+207. Write a `LEFT JOIN` version of #206.
+select *
+from chap_07_examples.departments as departments
+    left join chap_07_examples.employees as employees
+    on departments.dept_id = employees.dept_id;
+Feedback: Correct.
+
+208. Write a `FULL JOIN` version of #206.
+select * 
+from chap_07_examples.departments as departments
+    full join chap_07_examples.employees as employees
+    on departments.dept_id = employees.dept_id;
+Feedback: Correct.
+
+209. Write a self-join that maps employee first name to manager first name.
+   from self_join.employees as employees
+        join.employees as managers
+        on managers.first_name = employees.first_name
+Feedback: Incorrect.
+Feedback: Missing SELECT and wrong join condition.
+Feedback: Use worker.manager_id = manager.employee_id.
+210. Write a `CREATE TABLE` statement named `practice.users` with exactly these columns:
+    - `user_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY`
+    - `user_role text`
+    - `salary numeric(10,2)`
+    and include one `CHECK` constraint enforcing `salary >= 0`.
+    
+    create table practice.users (
+        user_id bigint GENERATED ALWAYS AS IDENTITY,
+        user_role text,
+        salary numeric(10,2),
+        CONSTRAINT salary_check CHECK (salary >= 0),
+        CONSTRAINT user_id_pk PRIMARY KEY (user_id)
+
+    )
+Feedback: Correct structure.
+Feedback: Add closing `);` to finish statement.
+
+==================================================
+Mixed SQL Drills (No Topic Splits)
+==================================================
+
+Note: If a prompt does not explicitly name a table, use `agent`.
+
+1. Join `agent` + `securityclearance` and filter where salary > 90000.
+   select * 
+   from agent  
+     join securityclearance 
+     on agent.clearance_id = securityclearance.sc_id
+   where salary > 90000;
+Feedback: Correct.
+
+2. Return unique countries only from `agent`.
+   select distinct country
+   from agent;
+Feedback: Incorrect for this prompt.
+Feedback: Prompt asks COUNT distinct countries.
+Feedback: Use `select count(distinct country) ...`.
+
+3. Create table `practice.licenses` with `license_id text PRIMARY KEY`, `first_name text`, `last_name text`.
+  create table practice.licenses (
+    license_id text,
+    first_name text,
+    last_name text
+    constraint license_id primary key (license_id)
+  )
+or 
+  create table practice.licenses (
+    license_id text primary key,
+    first_name text,
+    last_name text
+  );
+Feedback: Close.
+Feedback: First version misses comma before constraint.
+Feedback: Second version is correct.
+
+4. Return rows where `middle IS NULL`.
+  select * 
+  from agent
+  where middle is null
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+5. Create OR REPLACE view named `spy.team_mission_view` using a join on `team` and `mission`.
+create or replace view spy.team_mission_view as 
+    select * 
+    from spy.team as team 
+        join spy.mission as mission
+        on team.team_id = mission.team_id
+Feedback: SQL is correct.
+Feedback: Add `;` for full syntax.
+Feedback: If permission denied on `spy`, create in `public`.
+
+6. Using table `agent`, return rows ordered by `country ASC, city ASC, last ASC`.
+    select *
+    from spy.agent as agent
+    order by country asc, city asc, last asc
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+7. Count distinct countries in `agent`.
+   select count (distinct country)
+   from spy.agent 
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+8. Return rows where `salary BETWEEN 70000 AND 120000`.
+ select * 
+ from agent 
+where salary >= 70000 and salary <= 120000
+
+or  select 
+from agent 
+where salary between 70000 and 120000
+Feedback: First version is correct.
+Feedback: Second version is invalid (missing selected columns).
+
+9. Return only agents who have no language relationship row (`languagerel.lang_id IS NULL` after LEFT JOIN).
+    select * 
+     from agent 
+     left join languagerel
+    on agent.agent_id = languagerel.agent_id
+    where languagerel.lang_id is null;
+Feedback: Correct.
+
+10. Return top 5 highest-paid agents with `first`, `last`, `country`, `salary`.
+select first, last, country, salary
+from agent 
+order by salary desc
+limit 5;
+Feedback: Correct.
+
+11. Write SQL to drop a view if it exists.
+drop view if exists spy.team_mission_view
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+12. Return `first`, `last`, `salary` from `agent`.
+select first, last, salary 
+from agent 
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+13. Return rows where `country = 'USA'`.
+select *
+from agent 
+where country = 'USA'
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+14. Group by `city, country` and count agents.
+select count(*)
+from agent
+group by city, country; 
+Feedback: Correct.
+Feedback: To show group labels, return city and country too.
+
+15. Return rows where `first ILIKE 'j%'` (case-insensitive).
+select * 
+from agent 
+where first ilike 'j%'
+Feedback: Correct.
+Feedback: Add `;` for full syntax.
+
+16. Recreate `practice.registrations` so FK uses `ON DELETE CASCADE`.
+create table practice.registrations (
+    registration_id text,
+    registration_date date,
+    license_id text 
+        references practice.licenses (license_id) on delete cascade;
+    constraint registrations_pk primary key (registration_id, license_id)
+);
+
+17. Return rows ordered by `salary DESC`.
+18. Create a summary view with `COUNT(*)` missions by `mission_status`.
+19. Return rows where `first LIKE 'J%'` (case-sensitive).
+20. Create table with composite primary key `(student_id, school_day)`.
+21. Return distinct cities excluding `'Unknown'`.
+22. Return `salary` and `salary + 5000` as `"Raised Salary"`.
+23. Write a query returning all columns from `agent`.
+24. Return rows where `salary >= 90000`.
+25. LEFT JOIN `team` and `mission` on `team.team_id = mission.team_id`; show all teams even with no mission.
+26. Return average salary from `agent`.
+27. Return only 5 rows from `agent`.
+28. Return 5 rows after skipping first 3 rows from `agent`.
+29. Join `agent` -> `skillrel` -> `skill` and sort by skill then agent last name.
+30. Write one sentence: why a `GROUP BY` view is usually non-updatable.
+31. Return `min(salary)` and `max(salary)` from `agent`.
+32. Return rows where `middle IS NOT NULL`.
+33. Return `first || ' ' || last` as `"Agent Name"`.
+34. Write DDL statements in order to create a table, alter it, then drop it.
+35. Return total salary with `sum(salary)` from `agent`.
+36. Return countries with more than 2 agents (use GROUP BY + HAVING).
+37. Query `spy.agent_clearance_view` for agents at a specific clearance level and sort by agent name.
+38. Skip first 3 rows from `agent`.
+39. Create table with column-level PK and then table-level PK version (two statements).
+40. Join `team` + `mission` and show only teams with no mission (LEFT JOIN + WHERE null side).
+41. FULL JOIN `team` and `mission` on `team.team_id = mission.team_id`.
+42. Write one spy query with expression alias and one with table alias.
+43. Create table with `UNIQUE(email)` and `NOT NULL` on `email`.
+44. Return unique `country, city` combinations from `agent`.
+45. CROSS JOIN `language` and `skill`; return only ids and names.
+46. Return rows where `city IN ('London', 'Paris')`.
+47. Join `agent` -> `languagerel` -> `language` and return each agent with languages they speak.
+48. Return agents where `first NOT ILIKE 'j%'`.
+49. Write `DROP TABLE IF EXISTS practice.users;`
+50. Create a view named `spy.agent_clearance_view` with `agent_name`, `sc_level`, `description` using `agent` + `securityclearance`.
+51. Group by `country` and count agents per country.
+52. Create table `practice.registrations` with `registration_id text`, `registration_date date`, `license_id text REFERENCES practice.licenses(license_id)`, composite PK `(registration_id, license_id)`.
+53. Return rows where `salary > 100000` in USA, sorted by `salary DESC`.
+54. Return agents from `USA` with `salary > 100000`, sorted by `salary DESC`.
+55. Return agent counts per country sorted highest to lowest.
+56. Write `ALTER TABLE` to add `NOT NULL` to an existing `last_name` column.
+57. Count all rows in `agent`.
+58. Return rows where `hire_date IS NULL` style equivalent for spy schema: agents where `middle IS NULL`.
+59. Write `ALTER TABLE` to add CHECK `salary >= 0`.
+60. Group by `clearance_id` and sort by count descending.
+61. RIGHT JOIN `team` and `mission` on `team.team_id = mission.team_id`; show all missions even if no matching team.
+62. Create a view with calculated column alias (`salary + 5000 AS raised_salary`) from `agent`.
+63. INNER JOIN `agent` and `securityclearance` on `agent.clearance_id = securityclearance.sc_id`; return agent name and clearance description.
+64. Build a query on `agent` using WHERE + ORDER BY + LIMIT + OFFSET together.
+65. Write query that demonstrates `COUNT(*)` and `COUNT(middle)` in same result from `agent`.
+66. Create a view using `LIMIT 5` highest salaries from `agent`.
+67. LEFT JOIN `agent` to `languagerel` (and `language`) so agents with no language row still appear.
+68. Write the same INNER JOIN as #63 using aliases `a` and `sc`.
+69. Self-join and sort by manager then employee (use `self_join.employees`).
+70. Write a final exam-style query from spy schema tables with filter, two-column sort, limit, and computed alias.
+

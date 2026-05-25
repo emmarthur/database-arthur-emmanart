@@ -1,0 +1,8 @@
+Tables found:
+- Country: 11 rows
+- League: 11 rows
+- Match: 25979 rows
+- Player: 11060 rows
+- Player_Attributes: 183978 rows
+- Team: 299 rows
+- Team_Attributes: 1458 rows
