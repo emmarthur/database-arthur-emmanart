@@ -1,0 +1,36 @@
+174|
+175|CREATE TABLE spy.newagent AS
+176|SELECT *
+177|FROM spy.agent
+178|WHERE TRUE = FALSE;
+179|Answer the following:
+180|9a. Explain what this statement creates.
+181|
+182|Answer 9a:
+183|The statement creates spy.newagent with the same column names and data types as spy.agent, but with zero rows. From the Spy ERD, spy.agent has: agent_id, first, middle, last, address, city, country, salary, clearance_id — spy.newagent gets those nine columns with matching types and no data.
+184|
+185|9b. Why is TRUE = FALSE used in the query?
+186|
+187|Answer 9b:
+188|WHERE TRUE = FALSE is always false, so no rows from spy.agent are copied. I get the column structure only (CREATE TABLE ... AS SELECT with an empty result).
+189|
+190|9c. Include a screenshot showing that spy.newagent has the same columns as spy.agent.
+191|
+192|Answer 9c:
+193|[SCREENSHOT: \d spy.agent and \d spy.newagent in psql, or DBeaver column list for spy.agent and spy.newagent — show the nine columns above match (agent_id, first, middle, last, address, city, country, salary, clearance_id)]
+194|
+195|9d. Does newagent automatically copy the same primary key and foreign key constraints as agent? Explain.
+196|
+197|Answer 9d:
+198|No. CREATE TABLE ... AS SELECT copies columns and data types only; it does not copy constraints from spy.agent. On the ERD, spy.agent has a primary key on agent_id and a foreign key clearance_id -> spy.securityclearance.sc_id — those are not recreated on spy.newagent unless I add them with ALTER TABLE.
+199|
+200|9.e Drop the table when finished and include the SQL command you used.
+201|
+202|Answer 9e:
+203|DROP TABLE spy.newagent;
+204|
+205|[SCREENSHOT optional: message showing table dropped]
+206|
+207|DROP TABLE spy.newagent;
+208|
+209|Part 4: Transactions — 30 points (6*5 each)

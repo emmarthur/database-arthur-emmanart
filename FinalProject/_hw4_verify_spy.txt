@@ -1,0 +1,32 @@
+﻿python : Traceback (most recent call last):
+At C:\Users\emmak\AppData\Local\Temp\ps-script-a363a3e7-c652-40c7-b3f5-4365395f3306.ps1:94 char:1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "<string>", line 9, in <module>
+  File "C:\Users\emmak\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\uec03' in position 0: character maps to <undefined>
+111 Answer 6:
+112 SQL (subquery) ù spy.team (team_id, name) from ERD:
+114 FROM spy.team
+117 FROM spy.team
+123 Answer 7:
+124 SQL (subquery) ù spy schema from ERD: spy.agent -> spy.teamrel -> spy.team <- spy.mission; spy.missi
+126 FROM spy.agent AS a
+129 FROM spy.teamrel AS tr
+132 FROM spy.mission AS m
+133 INNER JOIN spy.securityclearance AS sc
+143 Answer 8:
+144 SQL (subquery) ù spy.language and spy.languagerel (lang_id, agent_id) from ERD:
+146 FROM spy.language AS l
+147 INNER JOIN spy.languagerel AS lr ON l.lang_id = lr.lang_id
+151 FROM (
+153 FROM spy.languagerel
+161 Explanation: Each row in spy.languagerel links one agent_id to one lang_id; COUNT is number of agent
+171 Part 3: CREATE TABLE Using a Subquery ù 15 points (5*3 each)
+173 If you do not already have your own local copy of the Spy database, I strongly recommend loading it 
+175 

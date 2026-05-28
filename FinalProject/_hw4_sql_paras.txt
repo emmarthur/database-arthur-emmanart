@@ -1,0 +1,46 @@
+26|FROM Books
+29|  FROM Publishers
+40|FROM Authors
+43|  FROM Books
+54|FROM Books b
+55|INNER JOIN Publishers p ON b.PubID = p.ID
+60|FROM Authors a
+61|INNER JOIN Books b ON a.ID = b.AuthorID
+71|FROM Books
+74|  FROM Books
+87|FROM Books b
+90|  FROM Books b2
+111|Answer 6:
+112|SQL (subquery) — table team (team_id, name) from ERD:
+114|FROM team
+116|  SELECT MAX(team_id)
+117|  FROM team
+123|Answer 7:
+124|SQL (subquery) — path from ERD: agent -> teamrel -> team <- mission; mission.access_id -> securityclearance:
+126|FROM agent AS a
+128|  SELECT tr.agent_id
+129|  FROM teamrel AS tr
+131|    SELECT m.team_id
+132|    FROM mission AS m
+133|    INNER JOIN securityclearance AS sc
+143|Answer 8:
+144|SQL (subquery) — tables language and languagerel (lang_id, agent_id) from ERD:
+145|SELECT l.language, COUNT(*) AS number_of_speakers
+146|FROM language AS l
+147|INNER JOIN languagerel AS lr ON l.lang_id = lr.lang_id
+151|  FROM (
+153|    FROM languagerel
+171|Part 3: CREATE TABLE Using a Subquery — 15 points (5*3 each)
+175|CREATE TABLE newagent AS
+177|FROM agent
+182|Answer 9a:
+183|The statement creates a new table named newagent with the same column names and data types as agent, but with zero rows. From the Spy ERD, agent has: agent_id, first, middle, last, address, city, country, salary, clearance_id — newagent gets those nine columns with matching types and no data.
+187|Answer 9b:
+188|WHERE TRUE = FALSE is always false, so no rows from agent are copied. I get the column structure only (CREATE TABLE ... AS SELECT with an empty result).
+192|Answer 9c:
+193|[SCREENSHOT: \d agent and \d newagent in psql, or DBeaver column list for both tables — show the nine columns above match (agent_id, first, middle, last, address, city, country, salary, clearance_id)]
+197|Answer 9d:
+198|No. CREATE TABLE ... AS SELECT copies columns and data types only; it does not copy constraints from agent. On the ERD, agent has a primary key on agent_id and a foreign key clearance_id -> securityclearance.sc_id — those are not recreated on newagent unless I add them with ALTER TABLE.
+202|Answer 9e:
+203|DROP TABLE newagent;
+207|DROP TABLE newagent;
