@@ -6,7 +6,7 @@ from docx import Document
 from docx.shared import Pt
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DOC = REPO_ROOT / "Homework" / "CS 486_586 – Homework 4-emmanart.docx"
+DOC = REPO_ROOT / "Homework" / "docx" / "CS 486_586 – Homework 4-emmanart.docx"
 
 SPY_ANSWER_LINES = [
     "Answer 6:",

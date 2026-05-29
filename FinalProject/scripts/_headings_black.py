@@ -12,10 +12,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FP = REPO_ROOT / "FinalProject"
 PATHS = [
-    REPO_ROOT / "Homework" / "Homework 3-emmanart.docx",
-    FP / "deliverables" / "deliverable-3-emmanart.docx",
-    FP / "deliverables" / "Deliverable-3-Instructions.docx",
-    FP / "deliverables" / "Deliverable2_emmanart.docx",
+    REPO_ROOT / "Homework" / "docx" / "Homework 3-emmanart.docx",
+    FP / "deliverables" / "docx" / "deliverable-3-emmanart.docx",
+    FP / "deliverables" / "docx" / "Deliverable-3-Instructions.docx",
+    FP / "deliverables" / "docx" / "Deliverable2_emmanart.docx",
 ]
 
 

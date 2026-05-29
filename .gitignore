@@ -25,7 +25,4 @@ ullman_the_complete_book.pdf
 
 # Temp extract dumps from Homework docx tooling
 Homework/scripts/_hw4_*.txt
-FinalProject/_hw4_dump.txt
-FinalProject/_hw4_extract.txt
-FinalProject/_hw4_paras.txt
-FinalProject/_hw4_check.txt
+FinalProject/_hw4_*.txt

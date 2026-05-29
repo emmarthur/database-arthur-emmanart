@@ -1,6 +1,7 @@
 $ErrorActionPreference = 'Stop'
-$inPath = Join-Path $PSScriptRoot 'In-ClassActivity 03-1.docx'
-$outPath = Join-Path $PSScriptRoot 'In-ClassActivity 03-1.pdf'
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
+$inPath = Join-Path $repoRoot 'InClass\docx\In-ClassActivity 03-1.docx'
+$outPath = Join-Path $repoRoot 'InClass\pdf\In-ClassActivity 03-1.pdf'
 
 if (-not (Test-Path -LiteralPath $inPath)) {
     Write-Error "Input not found: $inPath"

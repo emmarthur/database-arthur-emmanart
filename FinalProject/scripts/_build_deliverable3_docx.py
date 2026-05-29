@@ -9,8 +9,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FP = REPO_ROOT / "FinalProject"
-INSTR_PATH = FP / "deliverables" / "Deliverable-3-Instructions.docx"
-ANSWERS_PATH = FP / "deliverables" / "deliverable-3-emmanart.docx"
+INSTR_PATH = FP / "deliverables" / "docx" / "Deliverable-3-Instructions.docx"
+ANSWERS_PATH = FP / "deliverables" / "docx" / "deliverable-3-emmanart.docx"
 
 SCHEMA = 'soccer_proj'
 M = f'{SCHEMA}."Match_tbl"'

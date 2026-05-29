@@ -9,7 +9,7 @@ from docx.shared import Pt, RGBColor
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FP = REPO_ROOT / "FinalProject"
-OUT = FP / "deliverables" / "Final_Project_Deliverable_4-WriteUp.docx"
+OUT = FP / "deliverables" / "docx" / "Final_Project_Deliverable_4-WriteUp.docx"
 MIG = FP / "soccer_data" / "migration_artifacts"
 BUILD3 = FP / "scripts" / "_build_deliverable3_docx.py"
 

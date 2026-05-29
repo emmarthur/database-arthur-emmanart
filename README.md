@@ -4,26 +4,49 @@ Coursework and final project for **CS 486/586 Database Systems** — Emmanuel Ar
 
 ## Repository layout
 
+Files are grouped by **course area**, then by **type** (docx, pdf, sql, markdown, assets, etc.).
+
 ```
 DatabaseClass/
 ├── README.md
-├── Homework/                    # Submissions and HW tooling
-│   ├── CS 486_586 – Homework 4-emmanart.docx
-│   ├── homework4 image - spy.png
-│   └── scripts/                 # Regenerate or patch Homework 4 docx
-├── InClass/                     # In-class activities (Spy DB, books, etc.)
-├── Labs/                        # Lab and chapter SQL scripts
-├── Setup/                       # Postgres + DBeaver / SQLTools setup
-├── Scripts/                     # One-off utilities (docx/pdf helpers)
-├── Handouts/                    # Instructor text copies (study only)
-├── TestPrep/                    # Practice questions and cheatsheets
+├── Homework/
+│   ├── docx/          # Submitted Word documents
+│   ├── pdf/
+│   ├── markdown/      # Reference notes
+│   ├── assets/        # Screenshots (e.g. Spy ERD)
+│   ├── answers/       # Short text answers
+│   └── scripts/       # Regenerate or patch Homework 4 docx
+├── InClass/
+│   ├── docx/ | pdf/ | markdown/
+│   ├── prompts/ | answers/
+│   ├── sql/ | reference/
+├── Labs/
+│   ├── sql/
+│   └── pdf/
+├── Setup/
+│   ├── guides/
+│   └── pdf/
+├── Scripts/
+│   ├── python/
+│   └── powershell/
+├── Handouts/
+│   ├── pdf/           # Instructor slide PDFs
+│   └── text/          # Text copies for search/study
+├── TestPrep/
+│   └── text/          # Practice questions and cheatsheets
 └── FinalProject/
-    ├── docs/                    # Project planning and load guides
-    ├── deliverables/            # Instructions, demo SQL handout, write-ups
-    ├── presentation/            # Deliverable 4 pptx, pdf, deep-dive guide, screenshots
-    ├── demo/                    # Video demo talking points + SQL notes
-    ├── scripts/                 # Build docx/pptx, sqlite → postgres prep
-    └── soccer_data/             # Migration SQL + CSV (large files gitignored)
+    ├── docs/          # Planning guides (markdown, txt, pdf/)
+    ├── deliverables/
+    │   ├── docx/      # Write-ups and deliverable Word files
+    │   └── text/      # Instructions and demo SQL handout
+    ├── presentation/
+    │   ├── slides/    # pptx, pdf
+    │   ├── markdown/  # Slide-by-slide deep dive
+    │   └── screenshots/
+    ├── demo/
+    ├── assets/        # ERD images (erd/ subfolder for exports)
+    ├── scripts/
+    └── soccer_data/   # Migration SQL + CSV (large files gitignored)
 ```
 
 ## Final project (soccer)
@@ -31,8 +54,8 @@ DatabaseClass/
 - **Dataset:** [Kaggle European Soccer Database](https://www.kaggle.com/datasets/hugomathien/soccer)
 - **Stack:** SQLite source → CSV → PostgreSQL (`soccer_proj`)
 - **Load guide:** [FinalProject/docs/DBeaver-Table-and-Data-Load-Steps.md](FinalProject/docs/DBeaver-Table-and-Data-Load-Steps.md)
-- **Presentation:** [FinalProject/presentation/Deliverable4_Presentation-emmanart.pptx](FinalProject/presentation/Deliverable4_Presentation-emmanart.pptx)
-- **Slide-by-slide guide:** [FinalProject/presentation/Deliverable4_Presentation_Deep_Dive-emmanart.md](FinalProject/presentation/Deliverable4_Presentation_Deep_Dive-emmanart.md)
+- **Presentation:** [FinalProject/presentation/slides/Deliverable4_Presentation-emmanart.pptx](FinalProject/presentation/slides/Deliverable4_Presentation-emmanart.pptx)
+- **Slide-by-slide guide:** [FinalProject/presentation/markdown/Deliverable4_Presentation_Deep_Dive-emmanart.md](FinalProject/presentation/markdown/Deliverable4_Presentation_Deep_Dive-emmanart.md)
 
 ### Large files (not in Git)
 
