@@ -5,8 +5,12 @@ from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 HEADING_BLACK = RGBColor(0, 0, 0)
-INSTR_PATH = r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\Deliverable-3-Instructions.docx"
-ANSWERS_PATH = r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\deliverable-3-emmanart.docx"
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+FP = REPO_ROOT / "FinalProject"
+INSTR_PATH = FP / "deliverables" / "Deliverable-3-Instructions.docx"
+ANSWERS_PATH = FP / "deliverables" / "deliverable-3-emmanart.docx"
 
 SCHEMA = 'soccer_proj'
 M = f'{SCHEMA}."Match_tbl"'

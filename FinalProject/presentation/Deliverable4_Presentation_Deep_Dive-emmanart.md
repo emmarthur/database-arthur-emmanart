@@ -752,11 +752,12 @@ gantt
 
 | File | Purpose |
 |------|---------|
-| `Deliverable4_Presentation-emmanart.pptx` | Slides for video |
-| `Deliverable4_Presentation_Deep_Dive-emmanart.md` | This guide |
-| `Deliverable4_Demo_SQL_Handout.txt` | SQL only |
-| `demo_q16_results.png` / `demo_q18_results.png` | Screenshot slides |
-| `_build_deliverable4_pptx.py` | Rebuilds PowerPoint |
+| `FinalProject/presentation/Deliverable4_Presentation-emmanart.pptx` | Slides for video |
+| `FinalProject/presentation/Deliverable4_Presentation_Deep_Dive-emmanart.md` | This guide |
+| `FinalProject/deliverables/Deliverable4_Demo_SQL_Handout.txt` | SQL only |
+| `FinalProject/presentation/demo_q16_results.png` / `demo_q18_results.png` | Screenshot slides |
+| `FinalProject/demo/Demo_Q16_Q18_Answers.txt` | Demo script notes |
+| `FinalProject/scripts/_build_deliverable4_pptx.py` | Rebuilds PowerPoint |
 
 ---
 

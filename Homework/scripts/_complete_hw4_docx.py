@@ -7,9 +7,8 @@ from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor
 from docx.text.paragraph import Paragraph
 
-DOC_PATH = Path(
-    r"C:\Users\emmak\Desktop\CodingProjects\DatabaseClass\CS 486_586 – Homework 4-emmanart.docx"
-)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DOC_PATH = REPO_ROOT / "Homework" / "CS 486_586 – Homework 4-emmanart.docx"
 HEADING_BLACK = RGBColor(0, 0, 0)
 
 

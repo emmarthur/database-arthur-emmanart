@@ -7,11 +7,15 @@ BLACK = RGBColor(0x00, 0x00, 0x00)
 
 TARGET_STYLES = {"Title", "Subtitle"}
 
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+FP = REPO_ROOT / "FinalProject"
 PATHS = [
-    r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\Homework 3-emmanart.docx",
-    r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\deliverable-3-emmanart.docx",
-    r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\Deliverable-3-Instructions.docx",
-    r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\Deliverable2_emmanart.docx",
+    REPO_ROOT / "Homework" / "Homework 3-emmanart.docx",
+    FP / "deliverables" / "deliverable-3-emmanart.docx",
+    FP / "deliverables" / "Deliverable-3-Instructions.docx",
+    FP / "deliverables" / "Deliverable2_emmanart.docx",
 ]
 
 

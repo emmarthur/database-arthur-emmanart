@@ -8,16 +8,17 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
 
-OUT = Path(__file__).resolve().parent / "Deliverable4_Presentation-emmanart.pptx"
-PROJECT_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+PRESENTATION_DIR = PROJECT_DIR / "presentation"
+OUT = PRESENTATION_DIR / "Deliverable4_Presentation-emmanart.pptx"
 ERD_PNG = PROJECT_DIR / "soccer_proj_erd_slide.png"
 # If you add your DBeaver export here, the deck will prefer it over the generated diagram.
 USER_ERD_CANDIDATES = [
     PROJECT_DIR / "s26a_db0061 - s26a_db0061 - soccer_proj.png",
     PROJECT_DIR / "soccer_proj_erd.png",
 ]
-DEMO_Q16_RESULTS_PNG = PROJECT_DIR / "demo_q16_results.png"
-DEMO_Q18_RESULTS_PNG = PROJECT_DIR / "demo_q18_results.png"
+DEMO_Q16_RESULTS_PNG = PRESENTATION_DIR / "demo_q16_results.png"
+DEMO_Q18_RESULTS_PNG = PRESENTATION_DIR / "demo_q18_results.png"
 
 GREEN = RGBColor(0x1B, 0x5E, 0x20)
 DARK = RGBColor(0x21, 0x21, 0x21)

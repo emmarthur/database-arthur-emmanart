@@ -7,10 +7,11 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt, RGBColor
 
-ROOT = Path(r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass")
-OUT = ROOT / "Final_Project_Deliverable_4-WriteUp.docx"
-MIG = ROOT / "FinalProject" / "soccer_data" / "migration_artifacts"
-BUILD3 = ROOT / "FinalProject" / "_build_deliverable3_docx.py"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+FP = REPO_ROOT / "FinalProject"
+OUT = FP / "deliverables" / "Final_Project_Deliverable_4-WriteUp.docx"
+MIG = FP / "soccer_data" / "migration_artifacts"
+BUILD3 = FP / "scripts" / "_build_deliverable3_docx.py"
 
 HEADING_BLACK = RGBColor(0, 0, 0)
 

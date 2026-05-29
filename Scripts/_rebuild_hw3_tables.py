@@ -81,7 +81,9 @@ def find_paragraph(doc, prefix: str):
 
 
 def main():
-    path = r"c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\Homework 3-emmanart.docx"
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "Homework" / "Homework 3-emmanart.docx"
     doc = Document(path)
 
     # --- Remove old shorthand blocks (keep intro sentences before them)

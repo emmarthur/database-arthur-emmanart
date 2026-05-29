@@ -4,9 +4,8 @@ from pathlib import Path
 
 from docx import Document
 
-DOC = Path(
-    r"C:\Users\emmak\Desktop\CodingProjects\DatabaseClass\CS 486_586 – Homework 4-emmanart.docx"
-)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DOC = REPO_ROOT / "Homework" / "CS 486_586 – Homework 4-emmanart.docx"
 
 REPLACEMENTS = {
     "The statement creates a new table named newagent with the same column names and data types as agent, but with zero rows.": (

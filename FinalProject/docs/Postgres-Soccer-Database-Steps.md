@@ -10,7 +10,7 @@ We already converted your SQLite source into PostgreSQL migration artifacts:
 - Generated schema SQL: `FinalProject/soccer_data/migration_artifacts/postgres_schema.sql`
 - Generated table CSVs: `FinalProject/soccer_data/migration_artifacts/csv`
 - Generated row-count summary: `FinalProject/soccer_data/migration_artifacts/migration_summary.txt`
-- Helper script used: `FinalProject/sqlite_to_postgres_prep.py`
+- Helper script used: `FinalProject/scripts/sqlite_to_postgres_prep.py`
 
 Current dataset totals from the summary:
 
@@ -29,7 +29,7 @@ If you forget again, use this exact flow:
 1. Open DBeaver -> **Database** -> **New Database Connection**
 2. Search and select **SQLite**
 3. For database/file path, browse to  
-   `c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\soccer_data\database.sqlite`
+   `FinalProject/soccer_data/database.sqlite` (from repo root)
 4. Click **Test Connection** (download driver if prompted)
 5. Click **Finish**
 
@@ -44,14 +44,14 @@ Since your source is already SQLite, use this two-step flow:
 
 I prepared this helper script for you:
 
-- `FinalProject/sqlite_to_postgres_prep.py`
+- `FinalProject/scripts/sqlite_to_postgres_prep.py`
 
 Run it from PowerShell:
 
 ```powershell
-python "c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\sqlite_to_postgres_prep.py" `
-  --sqlite "c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\soccer_data\database.sqlite" `
-  --out-dir "c:\Users\emmak\Desktop\CodingProjects\DatabaseClass\FinalProject\soccer_data\migration_artifacts" `
+python FinalProject/scripts/sqlite_to_postgres_prep.py `
+  --sqlite FinalProject/soccer_data/database.sqlite `
+  --out-dir FinalProject/soccer_data/migration_artifacts `
   --schema soccer_proj
 ```
 
