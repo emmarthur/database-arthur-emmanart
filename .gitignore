@@ -21,7 +21,7 @@ FinalProject/soccer_data/migration_artifacts/csv/Match.csv
 FinalProject/soccer_data/migration_artifacts/csv/Player_Attributes.csv
 
 # Course PDF textbook (not redistributable)
-ullman_the_complete_book.pdf
+Reference/ullman_the_complete_book.pdf
 
 # Temp extract dumps from Homework docx tooling
 Homework/scripts/_hw4_*.txt

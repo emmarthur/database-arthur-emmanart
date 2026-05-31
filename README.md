@@ -4,7 +4,7 @@ Coursework and final project for **CS 486/586 Database Systems** — Emmanuel Ar
 
 ## Repository layout
 
-Files are grouped by **course area**, then by **type** (docx, pdf, sql, markdown, assets, etc.).
+Files are grouped by **course area**. Inside each area, related files are kept together when possible; `scripts/` and `soccer_data/` stay separate for tooling.
 
 ```
 DatabaseClass/
@@ -34,6 +34,7 @@ DatabaseClass/
 │   └── text/          # Text copies for search/study
 ├── TestPrep/
 │   └── text/          # Practice questions and cheatsheets
+├── Reference/         # Textbook PDF (gitignored; personal study only)
 └── FinalProject/
     ├── docs/          # Planning guides (markdown, txt, pdf/)
     ├── deliverables/
